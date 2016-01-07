@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Proyecto Daw </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static "css/perfil.css" %}">
+    <link rel="stylesheet" href="{% static "css/principal.css" %}">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" >
+    <link href="{% static "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <script src= "http://code.jquery.com/jquery-1.11.3.min.js" ></script>
+    <script src= "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ></script>
+
+  </head>
+  <body data-spy="scroll" data-target=".navbar" data-offset="50">
+    <header>
+
+    </header>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><img src="{% static "img/logo1.png" %}" class="img-circle" alt="Cinque Terre" width="30" height="30"></a>
+        </div>
+        <div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+              <li><a href="index.html#section1" target="_blank">What's New?</a></li>
+              <li><a href="index.html#section2" target="_blank">Features</a></li>
+              <li><a href="index.html#section3" target="_blank">Examples</a></li>
+              <li><a href="index.html#section4" target="_blank">About us</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <span class="glyphicon glyphicon-user"></span>   Joyce Sarmiento    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#" class="pull-right"><img alt="User Pic" src="img/thumb/1.jpg" class="img-thumbnail img-responsive " width="150" height="75"></a></li>
+                  <li><a href="index.html" target="_top">log out</a></li>
+                </ul>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <br>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-13">
+          <div class="jumbotron backGround">
+            <h2>User Profile</h2>
+          </div></div>
+
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-sm-6"><!--left col-->
+          <div class="panel panel-primary">
+            <div class="panel-heading">Perfil  <i class="glyphicon glyphicon-user"></i></div>
+
+            <div class="panel-body">
+              <table class="table table-user-information">
+                <tbody>
+                  <tr>
+                    <td>Code:</td>
+                    <td>Programming</td>
+                  </tr>
+                  <tr>
+                    <td>Name:</td>
+                    <td>Joyce Sarmiento</td>
+                  </tr>
+                  <tr>
+                    <td>Email</td>
+                    <td><a href="mailto:info@support.com">info@support.com</a></td>
+                  </tr>
+                  <tr>
+                    <td>Groups:</td>
+                    <td>DAW// Jazz Oyola y Kattya Desiderio</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+
+        </div><!--/col-6-->
+        <div class="col-sm-6">
+          <div class="row">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title">Created Documents  <i class="glyphicon glyphicon-file"></i>
+                  <a href="workarea.html" target="_top" >
+                    <span class="glyphicon glyphicon-plus"></span></a>
+                </h3>
+              </div>
+              <div class="panel-body">
+                <!--FIRST ROW CAROUSEL-->
+
+                <div class="row">
+                  <div class='col-md-12'>
+                    <div class="carousel slide media-carousel" id="media">
+                      <div class="carousel-inner">
+                        <div class="item  active">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <a class="thumbnail" href="#"><img alt=".." src="img/carrusel/2.jpg"></a>
+                            </div>
+                            <div class="col-md-6">
+                              <a class="thumbnail" href="#"><img alt=".." src="img/carrusel/1.jpg"></a>
+                            </div>
+
+                          </div>
+                        </div>
+                        <div class="item">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <a class="thumbnail" href="#"><img alt=".." src="img/carrusel/3.jpg"></a>
+                            </div>
+                            <div class="col-md-6">
+                              <a class="thumbnail" href="#"><img alt=".." src="img/carrusel/2.jpg"></a>
+                            </div>
+
+                          </div>
+                        </div>
+                        <div class="item">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <a class="thumbnail" href="#"><img alt=".." src="img/carrusel/5.png"></a>
+                            </div>
+                            <div class="col-md-6">
+                              <a class="thumbnail" href="#"><img alt=".." src="img/carrusel/1.jpg"></a>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      <a data-slide="prev" href="#media" class="left carousel-control">‹</a>
+                      <a data-slide="next" href="#media" class="right carousel-control">›</a>
+                    </div>
+                  </div>
+                </div>
+                <!--SECOND ROW OPTION BUTTON-->
+                <div class="row">
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title">Shared Documents <i class="glyphicon glyphicon-star"></i>
+                  <a href="workarea.html" target="_top" >
+                    <span class="glyphicon glyphicon-plus"></span></a>
+                </h3>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+
+                  <div class="carousel slide"  id="myCarousel">
+                    <div class="carousel-inner">
+                      <div class="item active">
+                        <ul class="thumbnails">
+                          <li class="col-md-4">
+                            <div class="fff">
+                              <div class="thumbnail">
+                                <a href="#"><img src="{% static "img/uml1.jpg" %}" alt="diagrama1"></a>
+                              </div>
+                              <div class="caption">
+                                <h4>ER-Bases II</h4>
+                                <p>Shared With:<br>+ Angely Oyola</p>
+                                <a href="workarea.html" target="_top" >
+                                  <span class="glyphicon glyphicon-pencil"></span></a>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="col-md-4">
+                            <div class="fff">
+                              <div class="thumbnail">
+                                <a href="#"><img src="{% static "img/uml4.jpg" %}" alt="diagrama3"></a>
+                              </div>
+                              <div class="caption">
+                                <h4>Diagrama1</h4>
+                                <p>Shared With:<br>+ Kattya Desiderio</p>
+                                <a href="workarea.html" target="_top" >
+                                  <span class="glyphicon glyphicon-pencil"></span></a>
+                              </div>
+                            </div>
+                          </li>
+
+                        </ul>
+                      </div><!-- /Slide1 -->
+                      <div class="item">
+                        <ul class="thumbnails">
+                          <li class="col-md-4">
+                            <div class="fff">
+                              <div class="thumbnail">
+                                <a href="#"><img src="{% static "img/uml3.jpg" %}" alt="diagrama3"></a>
+                              </div>
+                              <div class="caption">
+                                <h4>Diag ER</h4>
+                                <p>Shared With:<br>+ Stephy Quimba <br>+ Sianna Puente</p>
+                                <a href="workarea.html" target="_top" >
+                                  <span class="glyphicon glyphicon-pencil"></span></a>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="col-md-4">
+                            <div class="fff">
+                              <div class="thumbnail">
+                                <a href="#"><img src="{% static "img/uml4.jpg" %}" alt="diagrama4"></a>
+                              </div>
+                              <div class="caption">
+                                <h4>Components</h4>
+                                <p>Shared With:<br>+ Angely Oyola <br>+ Sianna Puente</p>
+                                <a href="workarea.html" target="_top" >
+                                  <span class="glyphicon glyphicon-pencil"></span></a>
+                              </div>
+                            </div>
+                          </li>
+
+                        </ul>
+                      </div><!-- /Slide2 -->
+                    </div>
+
+
+                    <nav>
+                      <ul class="control-box pager">
+                        <li><a data-slide="prev" href="#myCarousel" class=""><i class="glyphicon glyphicon-chevron-left"></i></a></li>
+                        <li><a data-slide="next" href="#myCarousel" class=""><i class="glyphicon glyphicon-chevron-right"></i></a></li>
+                      </ul>
+                    </nav>
+                    <!-- /.control-box -->
+
+                  </div><!-- /#myCarousel -->
+
+                </div>
+                <div class="row"></div>
+
+              </div>
+            </div>
+
+          </div>
+        </div><!--/tab-content-->
+
+      </div><!--/col-9-->
+
+    </div>
+
+    <footer class="container-fluid text-center">
+      <small>Proyecto DAW &copy; 2015</small>
+      <hr>
+      <div class="text-center center-block">
+        <p class="txt-railway">- Modelador -</p>
+        <br />
+        <a href="https://www.facebook.com"><i id="social-fb" class="fa fa-facebook-square fa-3x social"></i></a>
+        <a href="https://twitter.com"><i id="social-tw" class="fa fa-twitter-square fa-3x social"></i></a>
+        <a href="https://plus.google.com"><i id="social-gp" class="fa fa-google-plus-square fa-3x social"></i></a>
+        <a href="https://github.com"><i id="social" class="fa fa-github-square fa-3x social-gb"></i></a>
+
+        <a href="https://www.linkedin.com"> <i id="social" class="fa fa-linkedin-square fa-3x social-li"></i></a>
+      </div>
+      <hr>
+
+    </footer>
+
+  </body>
+</html>
