@@ -1,6 +1,8 @@
 from django.shortcuts import render
+from web.models import *
 
 # Create your views here.
 
 def home(request):
-    return render(request,'index.html',{})
+    users = User.objects.all()
+    return render(request,'user.html',{'users':users})
