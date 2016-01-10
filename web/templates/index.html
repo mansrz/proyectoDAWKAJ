@@ -2,8 +2,7 @@
 
 <!DOCTYPE html>
 
-{% block content %}
-    {% if form.errors %}
+{% if form.errors %}
         <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
 
@@ -47,6 +46,18 @@
               <li><a href="#section3">Examples</a></li>
               <li><a href="#section4">About us</a></li>
             </ul>
+            {% if request.user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <a>
+                {{ request.user }}
+                </a>
+              </li>
+              <li>
+                <a href="/logout/">Cerrar sesi&oacuten</a>
+              </li>
+            </ul>
+            {% else %}
 
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#myModal" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-pencil"></span> Sign Up</a></li>
@@ -58,7 +69,7 @@
                           <ul class="dropdown-menu">
                             <li style="width: 250px;">
                               {{ state }}
-                                  <form class="navbar-form form" role="form" method="post" action="">
+                                  <div class="navbar-form form" role="form">
                                     {% csrf_token %}
                                       {% if next %}
                                   		<input type="hidden" name="next" value="{{ next }}" />
@@ -87,11 +98,11 @@
                                           <input class="btn btn-primary" type="submit" value="login" id="button_login" name="login" href=""/>
                                       </div>
 
-                                  </form>
-                                  {% endblock %}
+                                  </div>
                               </li>
                           </ul>
                       </li>
+                      {% endif %}
                   </ul>
 
 
@@ -296,5 +307,33 @@
     </footer>
 
   </body>
+  <script>
+    $(document).ready(function(){
+      $('#button_login').click(function(event){
+        event.preventDefault();
+        var user = $('#userInput').val();
+        var pwd = $('#passwordInput').val();
+        var csrf = $('input[name="csrfmiddlewaretoken"]').val();
+        console.log(user);
+        console.log(csrf);
+        $.ajax({
+          type: "POST",
+          url:  "/login/",
+          data: {
+            'user':user,
+            'pwd':pwd,
+            'csrfmiddlewaretoken': csrf
+          },
+          success: function( data ) {
+            console.log('guardado');
+            window.location = "/";
+          },
+          error: function(data){
+            console.log(data);
+          }
+        });
+      });
+    });
+  </script>
 
 </html>

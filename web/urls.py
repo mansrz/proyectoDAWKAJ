@@ -7,8 +7,7 @@ urlpatterns = [
     # Examples:
     # url(r'^$', 'daw.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-
-    url(r'^', 'web.views.home'),
-    
-
+    url(r'^login/', 'web.views.login'),
+    url(r'^logout/', 'web.views.logout'),
+    url(r'^$', 'web.views.home'),
 ]
