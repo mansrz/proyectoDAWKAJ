@@ -1,5 +1,11 @@
 {% load staticfiles %}
+
 <!DOCTYPE html>
+
+{% block content %}
+    {% if form.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+{% endif %}
 
 <html lang="en">
 
@@ -43,8 +49,51 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="#myModal" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-user"></span> Sign In</a></li>
+              <li><a href="#myModal" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-pencil"></span> Sign Up</a></li>
             </ul>
+            <!--Log in Begin-->
+            <ul id="signInDropdown" class="nav navbar-nav navbar-right">
+                      <li class="dropdown">
+                         <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin"><span class="glyphicon glyphicon-user"></span>Login</a>
+                          <ul class="dropdown-menu">
+                            <li style="width: 250px;">
+                              {{ state }}
+                                  <form class="navbar-form form" role="form" method="post" action="">
+                                    {% csrf_token %}
+                                      {% if next %}
+                                  		<input type="hidden" name="next" value="{{ next }}" />
+                                  		{% endif %}
+                                      <div class="form-group">
+                                        <div class="input-group">
+                                              <span class="input-group-addon"><i class="glyphicon glyphicon-user color-blue"></i></span>
+                                              <!--EMAIL ADDRESS-->
+                                              <input id="userInput"  name= "username" value="{{ username}}" placeholder="username" class="form-control" type="text" required="">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <div class="input-group">
+                                              <span class="input-group-addon"><i class="glyphicon glyphicon-lock color-blue"></i></span>
+                                              <!--PASSWORD-->
+                                              <input  id="passwordInput" name="password" value="" placeholder="password" class="form-control" type="password" oninvalid="setCustomValidity('Please enter a password!')" onchange="try{setCustomValidity('')}catch(e){}" required="">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <!--REMEMBER--><br/><input type="checkbox" id="rememberCheck"> Remember me</input>
+                                          <!--BUTTON-->
+                                          <br/><br/>
+                                         <!--
+                                          <a  class="btn btn-primary" href="" value="login" name="login" href="">
+                                          <span class="glyphicon glyphicon-arrow-right"></span> Log in</a>-->
+                                          <input class="btn btn-primary" type="submit" value="login" id="button_login" name="login" href=""/>
+                                      </div>
+
+                                  </form>
+                                  {% endblock %}
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+
 
           </div>
         </div>
@@ -127,6 +176,8 @@
       </div>
     </div>
 
+    <br/><br/>
+
     <div id="section4" class="container-fluid">
       <h1><span class="label label-default">ABOUT US</span></h1>
       <hr>
@@ -172,218 +223,62 @@
       </div>
     </div>
 
-    <!-- Log in-->
-
-    <div id="myModal" class="modal fade" >
+    <!--Modal Sign Up-->
+    <div id="myModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
+        <!-- Modal content-->
         <div class="modal-content">
-          <div class="modal-header" display="inline">
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title" id="myModalLabel" font-weight="bold">Sign in</h4>
+            <span style="width: 570px; height: 50px; background-image: url('{% static "img/b.jpg" %}') ;text-transform: uppercase;font-size: 2.5em;text-align:center;color:white; display:block" />Sign Up </span>
+
           </div>
           <div class="modal-body">
-            <div class="tabs">
-              <!-- Radio button and lable for #tab-content1 -->
-              <input type="radio" name="tabs" id="tab1" checked >
-              <label class="fa" for="tab1">
-                <i class="fa"></i><span>New user</span>
-              </label>
-
-              <!-- Radio button and lable for #tab-content2 -->
-              <input type="radio" name="tabs" id="tab2">
-              <label class="fa" for="tab2">
-                <i class="fa"></i><span>Existing user</span>
-              </label>
-              <!-- #tab-content1 -->
-              <div id="tab-content1" class="tab-content">
-                <form role="form">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <input type="text" class="form-control" id="nuName" placeholder="Username" required>
-                      <label for="nuName" class="input-group-addon glyphicon glyphicon-user"></label>
-                    </div>
-                  </div> <!-- /.form-group -->
-                  <div class="form-group">
-                    <div class="input-group">
-                      <input type="email" class="form-control" id="nuemail" placeholder="your email" required>
-                      <label for="nuemail" class="input-group-addon glyphicon glyphicon-envelope"></label>
-                    </div>
-                  </div> <!-- /.form-group -->
-                  <div class="form-group">
-                    <div class="input-group">
-                      <input type="password" class="form-control" id="nuPassword" placeholder="Enter a password" required>
-                      <label for="nuPassword" class="input-group-addon glyphicon glyphicon-lock"></label>
-                    </div>
-                  </div> <!-- /.form-group -->
-                  <div class="btnContainer" text-align="center">
-                    <button type="submit" id="btnReg" class="btn btn-primary">Register for free</button>
-                  </div>
-                </form>
-              </div>
-              <div id="tab-content2" class="tab-content">
-                <form role="form">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <input type="text" class="form-control" id="uLogin" placeholder="Login" required>
-                      <label for="uLogin" class="input-group-addon glyphicon glyphicon-user"></label>
-                    </div>
-                  </div> <!-- /.form-group -->
-                  <div class="form-group">
-                    <div class="input-group">
-                      <input type="password" class="form-control" id="uPassword" placeholder="Password" required>
-                      <label for="uPassword" class="input-group-addon glyphicon glyphicon-lock"></label>
-                    </div> <!-- /.input-group -->
-                  </div> <!-- /.form-group -->
-                  <div class="form-group">
-                    <input type="checkbox" id="rememberCheck"> Remember me</input>
-                  </div> <!-- /.checkbox -->
-                  <div class="btnContainer">
-                    <button type="submit" class="btn btn-primary" id="btnLogin">Log in</button>
-                    <a href="perfil.html" target="_top" class="btn btn-primary" id="btnHidden" role="button" display="none"><span class="glyphicon glyphicon-log-in"></span>  Go to your Profile</a>
-                  </div>
-                </form>
-              </div> <!-- #tab-content2 -->
-            </div>
+            <form role="form">
+             <div class="form-group">
+                 <div class="input-group">
+                              <input type="text" class="form-control" id="nuName" placeholder="Username" required>
+                              <label for="nuName" class="input-group-addon glyphicon glyphicon-user"></label>
+                 </div>
+             </div> <!-- /.form-group -->
+             <div class="form-group">
+                 <div class="input-group">
+                              <input type="email" class="form-control" id="nuemail" placeholder="your email" required>
+                              <label for="nuemail" class="input-group-addon glyphicon glyphicon-envelope"></label>
+                 </div>
+             </div> <!-- /.form-group -->
+             <div class="form-group">
+                 <div class="input-group">
+  						     <input type="password" class="form-control" id="nuPassword" placeholder="Enter a password" required>
+                              <label for="nuPassword" class="input-group-addon glyphicon glyphicon-lock"></label>
+                 </div>
+             </div> <!-- /.form-group -->
+             <div class="btnContainer" text-align="center">
+             <p style="text-align:center"> <button type="submit" id="btnReg" class="btn btn-primary">Sign Up</button></p>
+             </div>
+       </form>
           </div>
+          <div class="modal-footer">
 
-          <div id="modFooter" class="modal-footer" text-align="center">
-            <div class="icon-bar vertical five-up" display="inline">
-              <a class="btn btn-primary social-login-btn social-facebook item" href="/auth/facebook"><i class="fa fa-facebook" display="block"></i></a>
-              <a class="btn btn-primary social-login-btn social-twitter item" href="/auth/twitter" ><i class="fa fa-twitter" display="block"></i></a>
-              <a class="btn btn-primary social-login-btn social-linkedin item" href="/auth/linkedin" ><i class="fa fa-linkedin" ></i>
-              </a>
-                <a class="btn btn-primary social-login-btn social-google item        " href="/auth/google" display="block"><i class="fa fa-google-plus" ></i></a>
+            <div class="icon-bar vertical five-up center" display="inline">
+              <p style="text-align:center">
+                <a class="btn btn-primary social-login-btn social-facebook item" href="https://www.facebook.com"><i class="fa fa-facebook" display="block"></i></a>
+                <a class="btn btn-primary social-login-btn social-twitter item"  href="https://twitter.com" ><i class="fa fa-twitter" display="block"></i></a>
+                <a class="btn btn-primary social-login-btn social-linkedin item" href="https://www.linkedin.com" ><i class="fa fa-linkedin" ></i></a>
+                <a class="btn btn-primary social-login-btn social-google item"   href="https://www.google.com" display="block"><i class="fa fa-google-plus" ></i></a>
+                  </p>
             </div>
-            <div class="progress">
-              <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="100" style="width: 0%;">
-                <span class="sr-only">progress</span>
-              </div>
-            </div>
+
+        </div>
+      </div>
+
+    </div>
           </div>
         </div>
 
       </div>
     </div>
-    <style>
-#btnHidden{display: none;}
-#modFooter,.btnContainer{ text-align: center;}
-#myModalLabel{font-weight:bold;}
-.checkbox{display: block; position: relative;}
-.tabs {
-  max-width: 90%;
-  float: inherit;
-  list-style: none;
-  padding: 0; border: 0;
-  margin: 0;
-}
 
-    .tabs:after {
-      content: '';
-      display: table;
-      clear: both;
-    }
-
-    .tabs input[type=radio] {
-      display:none;
-    }
-
-    .tabs label[class=fa] {
-      display: block;
-      float: left;
-      width: 33.3333%;
-      color: #ccc;
-      font-size: 15px;
-      font-weight: normal;
-      text-decoration: none;
-      text-align: center;
-      line-height: 1;
-      cursor: pointer;
-      box-shadow: inset 0 0px #ccc;
-      border-bottom: 4px solid #ccc;
-
-      -webkit-transition: all 0.5s; /* Safari 3.1 to 6.0 */
-      transition: all 0.5s;
-    }
-    @media (min-width: 768px) {
-      .tabs i {
-        padding: 1px;
-        margin-right: 5px;
-      }
-
-      .tabs label span {
-        display: inherit;
-        text-align: center;
-      }
-
-      .tabs {
-        max-width: 750px;
-        margin: 0px;
-      }
-    }
-
-    .tabs label span {
-      color: black;
-    }
-
-    .tabs label i {
-      padding: 0px;
-      line-height: 1;
-      margin-right: 0;
-      border-bottom: 4px solid #3498db;
-    }
-
-    .tabs label:hover {
-      color: #3498db;
-      border-bottom: 4px solid #3498db;
-      line-height: 1;
-    }
-
-    .tab-content {
-      display: none;
-      width: 100%;
-      float: left;
-      margin-top: 20px;
-      padding: 2px;
-      box-sizing: border-box;
-      background-color:white;
-    }
-    .tab-content * {
-
-      -webkit-animation: scale 0.7s ease-in-out;
-      -moz-animation: scale 0.7s ease-in-out;
-      animation: scale 0.7s ease-in-out;
-    }
-
-    @keyframes scale {
-
-      0% {
-        transform: scale(0.9);
-        opacity: 0;
-      }
-
-      50% {
-        transform: scale(1.01);
-        opacity: 0.5;
-      }
-
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-
-    }
-    .tabs [id^="tab"]:checked + label {
-      background: white;
-      box-shadow: inset 0 4px #3498db;
-      border-bottom: 4px solid #3498db;
-      color: #3498db;
-    }
-
-    #tab1:checked ~ #tab-content1,
-    #tab2:checked ~ #tab-content2 {
-      display: block;
-    }
-    </style>
     <footer>
       <small>Proyecto DAW &copy; 2015</small>
       <hr>
@@ -401,39 +296,5 @@
     </footer>
 
   </body>
-  <script>
-$(document).ready(function(){
-  $('.btnContainer #btnLogin').click(function(){
-    var button = $(this);
-    var buttn = $('.btnContainer #btnHidden');
-    if ( button.attr("data-dismiss") != "modal" ){
-      var progress = $('.progress');
-      var progressBar = $('.progress-bar');
-      button.hide();
-      progress.show();
-      progressBar.animate({width : "100%"}, 100);
-      progress.delay(10000)
-        .fadeOut(600);
-      buttn.show();
-      buttn.removeClass("btn-primary")
-        .addClass("btn-success")
-        .blur()
-        .delay(1600)
-        .fadeIn(function(){
-          button.attr("data-dismiss", "modal");
-        });
-    }
-  });
-  $('#myModal').on('hidden.bs.modal', function (e) {
-    var progressBar = $('.progress-bar');
-    var button = $('.btnContainer #btnLogin');
-    inputs.removeAttr("disabled");
-    progressBar.css({ "width" : "0%" });
-    button.removeClass("btn-success")
-      .addClass("btn-primary")
-      .text("Sing In")
-      .removeAttr("data-dismiss");
-  });
-});
-  </script>
+
 </html>

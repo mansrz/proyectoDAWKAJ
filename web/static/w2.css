@@ -5,33 +5,33 @@
       margin-bottom: 0;
       border-radius: 0;
     }
-    
+
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
     .row.content {height: 600px}
-    
+
     /* Set gray background color and 100% height */
     .sidenav {
       padding-top: 20px;
       background-color: #f1f1f1;
       height: 100%;
     }
-    
+
     /* Set black background color, white text and some padding */
     footer {
       background-color: #555;
       color: white;
       padding: 15px;
     }
-    
+
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
       .sidenav {
         height: auto;
         padding: 15px;
       }
-      .row.content {height:auto;} 
+      .row.content {height:auto;}
     }
-  
+
  /*SIDEBAR RIGHT*/
 .chat
 {
@@ -91,3 +91,20 @@
 {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
     background-color: #555;
+
+/*Carrito -Angely*/
+#carrito{
+  width: 100vw;
+  height: 100vh;
+  margin-top: 40px;
+  margin-left: 30px;
+    .position : absolute;
+  clear:  both;
+}
+      .Paleta{
+        width:80px;
+        height:80px;
+      }
+      #dragLabeldiv{
+        width:50px;
+      }

@@ -1,8 +1,9 @@
 from django.shortcuts import render
+from django.contrib.auth import authenticate,login
+from django.http import HttpResponseRedirect, HttpResponse
 from web.models import *
 
 # Create your views here.
 
 def home(request):
-    users = User.objects.all()
-    return render(request,'user.html',{'users':users})
+    return render(request,'index.html',{})

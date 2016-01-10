@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -15,120 +16,104 @@
     <script type= "text/javascript" src="http://code.jquery.com/jquery-1.9.1.js" ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>
     <script type= "text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
-    <style>
-#carrito{
-  width: 100vw;
-  height: 100vh;
-  margin-top: 40px;
-  margin-left: 30px;
-    .position : absolute;
-  clear:  both;
-}
-      .Paleta{
-        width:80px;
-        height:80px;
-      }
-      #dragLabeldiv{
-        width:50px;
-      }
-    </style>
+
     <script type= "text/javascript">
-$(document).on('ready', function () {
-  var template = 0, svg, objeto1, objeto2, newel;
-  $('#save').on('click', function(){
-    var div = document.createElement("div");
-    div.setAttribute("height", "500px");
-    div.setAttribute("weight", "500px");
-    var svg2=document.createElementNS("img","imagen");
-    svg2.setAttribute("width","300");
-    svg2.setAttribute("height","500");
-    svg2.setAttribute("src", "Resources/bg.svg");
-    var lienzo = d3.select(div)
-      .append("svg")
-      .attr({
-        "width":600,
-        "id": svg,
-        "height":400
-      });
-    lienzo.node().appendChild(svg2);
-    $("#carrito").append(lienzo);
-    alert("SVG creado con éxito");
-    $("#carrito").empty();
-  });
-  $('.Paleta').draggable({
-    cursor: "move",
-    helper: 'clone'
-  });
-  $('#carrito').droppable({
-    accept: '.Paleta',
-    drop: eventoDrop
-  });
-  function eventoDrop(evento, ui) {
-    var on =0;
-    $("#plabel").empty();
-    if(ui.draggable.attr("class")!= "clone"){
-      var draggable = ui.draggable.clone(); }
-    draggable.attr("class", "clone");
-    draggable.on('dblclick', function(){
-      $(this).remove();
-    });
-    draggable.on('mouseover', function(){
-      $(this).css("background-color", "blue");
-      $(this).on('click', function(){
-        $(this).draggable();
-      });
-    });
-    draggable.on('mouseleave', function(){
-      $(this).css("background-color","white");
-    });
-    $("#carrito").append(draggable);
-  }
-  /*SVG*/
-  $("#btnCargar").click(function () {
-    $.get($("#cargarArchivo").val(), function (d) {
-      var svg, objeto, img;
-      objeto = $("<object></object>");
-      objeto.attr("type", "image/svg+xml");
-      objeto.attr("data", "Resources/t1.svg");
-      $("#carrito").append(objeto);
-    });
-  });
-});
-function load()
-{
-  var  btn;
-  btn = document.getElementById("new");
-  btnLabel = document.getElementById("crearLabel");
-  btn.addEventListener("click", verImagen, false);
-  btnLabel.addEventListener("click", crearLabel, false);
-  <!--document.getElementById("save").addEventListener("click", guardarSvg, false);
-}
-function guardarSvg(){
-  var element = document.createElement('a');
-  element.setAttribute('href', 'data:text/plain;charset=utf-8,' +
-      encodeURIComponent(document.getElementById("svg").getAttribute("data")
-        ));
-  element.setAttribute('download', "salida.svg");
-  element.style.display = 'none';
-  document.body.appendChild(element);
-  element.click();
-  document.body.removeChild(element);
-}
-function crearLabel(){
-  var label = document.getElementById("nombreTabla");
-  var div= document.getElementById("dragLabeldiv");
-  div.setAttribute("display", "inline");
-  var p= document.getElementById("plabel");
-  var node = document.createTextNode(label.value);
-  p.appendChild(node);
-  label.value = "";
-}
-function verImagen(){
-  var svgContainer = document.getElementById ("carrito");
-  var svg   = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  var svgNS = svg.namespaceURI;
-}
-window.addEventListener("load", load, false);
+          $(document).on('ready', function () {
+            var template = 0, svg, objeto1, objeto2, newel;
+            $('#save').on('click', function(){
+              var div = document.createElement("div");
+              div.setAttribute("height", "500px");
+              div.setAttribute("weight", "500px");
+              var svg2=document.createElementNS("img","imagen");
+              svg2.setAttribute("width","300");
+              svg2.setAttribute("height","500");
+              svg2.setAttribute("src", "Resources/bg.svg");
+              var lienzo = d3.select(div)
+                .append("svg")
+                .attr({
+                  "width":600,
+                  "id": svg,
+                  "height":400
+                });
+              lienzo.node().appendChild(svg2);
+              $("#carrito").append(lienzo);
+              alert("SVG creado con éxito");
+              $("#carrito").empty();
+            });
+            $('.Paleta').draggable({
+              cursor: "move",
+              helper: 'clone'
+            });
+            $('#carrito').droppable({
+              accept: '.Paleta',
+              drop: eventoDrop
+            });
+            function eventoDrop(evento, ui) {
+              var on =0;
+              $("#plabel").empty();
+              if(ui.draggable.attr("class")!= "clone"){
+                var draggable = ui.draggable.clone(); }
+              draggable.attr("class", "clone");
+              draggable.on('dblclick', function(){
+                $(this).remove();
+              });
+              draggable.on('mouseover', function(){
+                $(this).css("background-color", "blue");
+                $(this).on('click', function(){
+                  $(this).draggable();
+                });
+              });
+              draggable.on('mouseleave', function(){
+                $(this).css("background-color","white");
+              });
+              $("#carrito").append(draggable);
+            }
+            /*SVG*/
+            $("#btnCargar").click(function () {
+              $.get($("#cargarArchivo").val(), function (d) {
+                var svg, objeto, img;
+                objeto = $("<object></object>");
+                objeto.attr("type", "image/svg+xml");
+                objeto.attr("data", "Resources/t1.svg");
+                $("#carrito").append(objeto);
+              });
+            });
+          });
+          function load()
+          {
+            var  btn;
+            btn = document.getElementById("new");
+            btnLabel = document.getElementById("crearLabel");
+            btn.addEventListener("click", verImagen, false);
+            btnLabel.addEventListener("click", crearLabel, false);
+            <!--document.getElementById("save").addEventListener("click", guardarSvg, false);
+          }
+          function guardarSvg(){
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' +
+                encodeURIComponent(document.getElementById("svg").getAttribute("data")
+                  ));
+            element.setAttribute('download', "salida.svg");
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+          }
+          function crearLabel(){
+            var label = document.getElementById("nombreTabla");
+            var div= document.getElementById("dragLabeldiv");
+            div.setAttribute("display", "inline");
+            var p= document.getElementById("plabel");
+            var node = document.createTextNode(label.value);
+            p.appendChild(node);
+            label.value = "";
+          }
+          function verImagen(){
+            var svgContainer = document.getElementById ("carrito");
+            var svg   = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            var svgNS = svg.namespaceURI;
+          }
+          window.addEventListener("load", load, false);
     </script>
     <title>Diagramas ER</title>
   </head>
@@ -142,7 +127,7 @@ window.addEventListener("load", load, false);
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#"><img src="{% static "img/logo1.png" %}" class="img-circle" alt="Cinque Terre" width="30" height="30"></a>
+        <a class="navbar-brand" href="#"><img src="{% static "img/logo1.png" %}" class="img-circle" alt="ICO-BRAND" width="30" height="30"></a>
         </div>
         <div>
           <div class="collapse navbar-collapse" id="myNavbar">
@@ -190,9 +175,9 @@ window.addEventListener("load", load, false);
                   <div class="list-group">
                     <!--  <img class="Paleta", src="http://upload.wikimedia.org/wikipedia/commons/a/a0/Circle_-_black_simple.svg"> </img>
                       <!--<img class="Paleta", src="http://imgh.us/bg_23.svg"> </img>-->
-                      <img class="Paleta", src="Resources/t1.svg"> </img>
-                      <img class="Paleta", src="Resources/t2.svg"> </img>
-                      <img class="Paleta", src="Resources/t3.svg"> </img>
+                      <img class="Paleta", src="{% static " Resources/t1.svg" %}"> </img>
+                      <img class="Paleta", src="{% static " Resources/t2.svg" %}"> </img>
+                      <img class="Paleta", src="{% static " Resources/t3.svg" %}"> </img>
                   </div>
                 </div>
               </div>
@@ -209,11 +194,11 @@ window.addEventListener("load", load, false);
               <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                 <div class="panel-body">
                   <div class="list-group">
-                    <img class="Paleta", src="Resources/t4.svg"> </img>
-                    <img class="Paleta", src="Resources/t5.svg"> </img>
-                    <img class="Paleta", src="Resources/t6.svg"> </img>
-                    <img class="Paleta", src="Resources/t7.svg"> </img>
-                    <img class="Paleta", src="Resources/t8.svg"> </img>
+                    <img class="Paleta", src="{% static " Resources/t4.svg" %}"> </img>
+                    <img class="Paleta", src="{% static " Resources/t5.svg" %}"> </img>
+                    <img class="Paleta", src="{% static " Resources/t6.svg" %}"> </img>
+                    <img class="Paleta", src="{% static " Resources/t7.svg" %}"> </img>
+                    <img class="Paleta", src="{% static " Resources/t8.svg" %}"> </img>
                   </div>
                 </div>
               </div>
