@@ -9,5 +9,7 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
     url(r'^login/', 'web.views.login'),
     url(r'^logout/', 'web.views.logout'),
+    url(r'^perfil/', 'web.views.perfil'),
+    url(r'^workarea/', 'web.views.workarea'),
     url(r'^$', 'web.views.home'),
 ]

@@ -4,7 +4,22 @@ from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadReque
 from web.models import *
 from suds.xsd.doctor import ImportDoctor, Import
 from suds.client import Client
-# Create your views here.
+
+#funcion logout
+class AutoLogout:
+     def process_request(self, request):
+        if not request.user.is_authenticated() :
+         return
+        try:
+            if datetime.now() - request.session['last_touch'] > timedelta( 0, settings.AUTO_LOGOUT_DELAY * 60, 0):
+                auth.logout(request)
+                del request.session['last_touch']
+                print ("La sesion se ha cerrado por inactividad")
+                return
+        except KeyError:
+         pass
+         request.session['last_touch'] = datetime.now()
+
 def home(request):
     return render(request,'index.html',{})
 
@@ -21,7 +36,7 @@ def login(request):
            login(request, auth)
            return HttpResponse()
         else:
-            url = 'http://ws.espol.edu.ec/saac/wsandroid.asmx?WSDL'
+            url = 'http://ws.espol.edu.ec/saac/wsandroid.asmx?WSDL' #http://ws.espol.edu.ec/saac/wsandroid.asmx?WSDL
             imp = Import('http://www.w3.org/2001/XMLSchema')
             imp.filter.add('http://tempuri.org/')
             doctor = ImportDoctor(imp)
@@ -42,3 +57,9 @@ def logout(request):
     from django.contrib.auth import logout
     logout(request)
     return redirect('/')
+
+def perfil(request):
+    return render(request,'perfil.html',{})
+
+def workarea(request):
+    return render(request,'workarea.html',{})
