@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login
 from django.forms import ModelForm
 # Models.
-
+"""
 class Persona (models.Model):
     nombre = models.CharField(max_length=9 , null = True, blank= True)
     apellido = models.CharField(max_length=9 , null = True, blank= True)
@@ -27,3 +27,4 @@ class Historial (models.Model):
 class Asociado (models.Model):
     fk_persona = models.ForeignKey(User, related_name = 'follow')# seguido
     fk_asociado = models.ForeignKey(User, related_name = 'follower')# seguidor
+"""
