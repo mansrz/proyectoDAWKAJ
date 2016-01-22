@@ -9,22 +9,26 @@
 <html lang="en">
 
   <head>
-    <title>Proyecto Daw </title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static "css/principal.css" %}">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <meta name="description" content="Ejemplo de HTML5" />
+    <meta name="keywords" content="HTML5, CSS3, Javascript" />
+    <link rel="stylesheet" href="{% static "w2.css" %}">
+    <link rel="stylesheet" href="{% static "principal.css" %}">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"  rel="stylesheet">
+    <script type="text/javascript" src= "http://d3js.org/d3.v3.js" charset="utf-8"></script>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ></script>
+    <script type= "text/javascript" src="http://code.jquery.com/jquery-1.9.1.js" ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>
+    <script type= "text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
   </head>
 
   <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
     <header>
+    </br>
       <div><h1 id="marquesina"><span>Diagrams</span><br><span>Done Right</span></h1></div>
     </header>
 
@@ -33,86 +37,69 @@
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
             <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="#"><img src="{% static "img/logo1.png" %}" class="img-circle" alt="ICO-BRAND" width="30" height="30"></a>
         </div>
-        <div>
-          <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-              <li><a href="#section1">What's New?</a></li>
-              <li><a href="#section2">Features</a></li>
-              <li><a href="#section3">Examples</a></li>
-              <li><a href="#section4">About us</a></li>
-            </ul>
-            {% if request.user.is_authenticated %}
-            <ul class="nav navbar-nav navbar-right">
-              <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                {{ request.user }}
-                  <span class="caret"></span>
-                </a>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li><a href="#section1">What's New?</a></li>
+            <li><a href="#section2">Features</a></li>
+            <li><a href="#section3">Examples</a></li>
+            <li><a href="#section4">About us</a></li>
+          </ul>
+          {% if request.user.is_authenticated %}
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              {{ request.user }}
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'web.views.perfil' %}">Ver Perfil</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="/logout/">Cerrar sesi&oacuten</a>
+            </li>
+          </ul>
+          {% else %}
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#myModal" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-pencil"></span> Sign Up</a></li>
+          </ul>
+          <!--Log in Begin-->
+          <ul id="signInDropdown" class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+               <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin"><span class="glyphicon glyphicon-user"></span>Login</a>
                 <ul class="dropdown-menu">
-                  <li><a href="{% url 'web.views.perfil' %}">Ver Perfil</a></li>
+                  <li style="width: 250px;">
+                    {{ state }}
+                        <div class="navbar-form form" role="form">
+                          {% csrf_token %}
+                            {% if next %}
+                        		<input type="hidden" name="next" value="{{ next }}" />
+                        		{% endif %}
+                            <div class="form-group">
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user color-blue"></i></span>
+                                <input id="userInput"  name= "username" value="{{ username}}" placeholder="username" class="form-control" type="text" required="">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock color-blue"></i></span>
+                                <input  id="passwordInput" name="password" value="" placeholder="password" class="form-control" type="password" oninvalid="setCustomValidity('Please enter a password!')" onchange="try{setCustomValidity('')}catch(e){}" required="">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                                <br/><input type="checkbox" id="rememberCheck"> Remember me</input><br/><br/>
+                                <input class="btn btn-primary" type="submit" value="login" id="button_login" name="login" href=""/>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
-              </li>
-              <li>
-                <a href="/logout/">Cerrar sesi&oacuten</a>
-              </li>
-
-
-            </ul>
-            {% else %}
-
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="#myModal" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-pencil"></span> Sign Up</a></li>
-            </ul>
-            <!--Log in Begin-->
-            <ul id="signInDropdown" class="nav navbar-nav navbar-right">
-                      <li class="dropdown">
-                         <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin"><span class="glyphicon glyphicon-user"></span>Login</a>
-                          <ul class="dropdown-menu">
-                            <li style="width: 250px;">
-                              {{ state }}
-                                  <div class="navbar-form form" role="form">
-                                    {% csrf_token %}
-                                      {% if next %}
-                                  		<input type="hidden" name="next" value="{{ next }}" />
-                                  		{% endif %}
-                                      <div class="form-group">
-                                        <div class="input-group">
-                                              <span class="input-group-addon"><i class="glyphicon glyphicon-user color-blue"></i></span>
-                                              <!--EMAIL ADDRESS-->
-                                              <input id="userInput"  name= "username" value="{{ username}}" placeholder="username" class="form-control" type="text" required="">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <div class="input-group">
-                                              <span class="input-group-addon"><i class="glyphicon glyphicon-lock color-blue"></i></span>
-                                              <!--PASSWORD-->
-                                              <input  id="passwordInput" name="password" value="" placeholder="password" class="form-control" type="password" oninvalid="setCustomValidity('Please enter a password!')" onchange="try{setCustomValidity('')}catch(e){}" required="">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <!--REMEMBER--><br/><input type="checkbox" id="rememberCheck"> Remember me</input>
-                                          <!--BUTTON-->
-                                          <br/><br/>
-                                         <!--
-                                          <a  class="btn btn-primary" href="" value="login" name="login" href="">
-                                          <span class="glyphicon glyphicon-arrow-right"></span> Log in</a>-->
-                                          <input class="btn btn-primary" type="submit" value="login" id="button_login" name="login" href=""/>
-                                      </div>
-
-                                  </div>
-                              </li>
-                          </ul>
-                      </li>
-                      {% endif %}
-                  </ul>
-
-
-          </div>
+            </li>
+            {% endif %}
+          </ul>
         </div>
       </div>
     </nav>
@@ -193,8 +180,6 @@
       </div>
     </div>
 
-    <br/><br/>
-
     <div id="section4" class="container-fluid">
       <h1><span class="label label-default">ABOUT US</span></h1>
       <hr>
@@ -251,7 +236,6 @@
 
           </div>
           <div class="modal-body">
-            <form role="form">
              <div class="form-group">
                  <div class="input-group">
                               <input type="text" class="form-control" id="nuName" placeholder="Username" required>
@@ -271,33 +255,28 @@
                  </div>
              </div> <!-- /.form-group -->
              <div class="btnContainer" text-align="center">
-             <p style="text-align:center"> <button type="submit" id="btnReg" class="btn btn-primary">Sign Up</button></p>
+                <button type="submit" id="btnReg" class="btn btn-primary">Sign Up</button>
              </div>
-       </form>
           </div>
           <div class="modal-footer">
-
             <div class="icon-bar vertical five-up center" display="inline">
-              <p style="text-align:center">
-                <a class="btn btn-primary social-login-btn social-facebook item" href="https://www.facebook.com"><i class="fa fa-facebook" display="block"></i></a>
-                <a class="btn btn-primary social-login-btn social-twitter item"  href="https://twitter.com" ><i class="fa fa-twitter" display="block"></i></a>
-                <a class="btn btn-primary social-login-btn social-linkedin item" href="https://www.linkedin.com" ><i class="fa fa-linkedin" ></i></a>
-                <a class="btn btn-primary social-login-btn social-google item"   href="https://www.google.com" display="block"><i class="fa fa-google-plus" ></i></a>
-                  </p>
+                <p style="text-align:center">
+                  <a class="btn btn-primary social-login-btn social-facebook item" href="https://www.facebook.com"><i class="fa fa-facebook" display="block"></i></a>
+                  <a class="btn btn-primary social-login-btn social-twitter item"  href="https://twitter.com" ><i class="fa fa-twitter" display="block"></i></a>
+                  <a class="btn btn-primary social-login-btn social-linkedin item" href="https://www.linkedin.com" ><i class="fa fa-linkedin" ></i></a>
+                  <a class="btn btn-primary social-login-btn social-google item"   href="https://www.google.com" display="block"><i class="fa fa-google-plus" ></i></a>
+                </p>
             </div>
-
-        </div>
-      </div>
-
-    </div>
           </div>
         </div>
 
       </div>
+
     </div>
 
     <footer>
-      <small>Proyecto DAW &copy; 2015</small>
+      <p style="text-align:center;">
+      <small class="text-center"> Proyecto DAW &copy; 2015</small></p>
       <hr>
       <div class="text-center center-block">
         <p class="txt-railway">- Modelador -</p>

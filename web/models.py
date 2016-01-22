@@ -1,30 +1,60 @@
+# This is an auto-generated Django model module.
+# You'll have to do the following manually to clean this up:
+#   * Rearrange models' order
+#   * Make sure each model has one field with primary_key=True
+#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+# Feel free to rename the models, but don't rename db_table values or field names.
+#
+# Also note: You'll have to insert the output of 'django-admin sqlcustom [app_label]'
+# into your database.
+from __future__ import unicode_literals
+
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login
 from django.forms import ModelForm
-# Models.
-"""
-class Persona (models.Model):
-    nombre = models.CharField(max_length=9 , null = True, blank= True)
-    apellido = models.CharField(max_length=9 , null = True, blank= True)
-    username = models.CharField(max_length=6 , null = True, blank= True)
-    email = models.CharField(max_length=20 , null = True, blank= True)
-    tipo = models.BooleanField(default=False)
-    fk_user = models.ForeignKey(User, related_name = 'persona')
 
-class ImagenSVG (models.Model):
-    titulo = models.CharField(max_length=9 , null = True, blank= True)
-    descripcion = models.CharField(max_length=15 , null = True, blank= True)
-    path = models.CharField(max_length=15 , null = True, blank= True)
-    fk_person = models.ForeignKey(User, related_name = 'creador')#id del usuario creador
 
-class Historial (models.Model):
-    fecha = models.DateField(auto_now=True)
-    #hora = models.CharField(max_length=15 , null = True, blank= True)
-    fk_imagen = models.ForeignKey(User, related_name = 'imagen')
-    fk_person = models.ForeignKey(User, related_name = 'creador')#id del usuario creador
 
-class Asociado (models.Model):
-    fk_persona = models.ForeignKey(User, related_name = 'follow')# seguido
-    fk_asociado = models.ForeignKey(User, related_name = 'follower')# seguidor
-"""
+class Imagen(models.Model):
+    idimagen = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=15, blank=True, null=True)
+    descripcion = models.CharField(max_length=15, blank=True, null=True)
+    ruta = models.CharField(max_length=2000, blank=True, null=True)
+    idcreador = models.ForeignKey('Persona', db_column='idcreador', blank=True, null=True)
+    json = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+            return self.idimagen
+    class Meta:
+        managed = False
+        db_table = 'imagen'
+
+
+class ImgCompartidas(models.Model):
+    idcompartida = models.AutoField(primary_key=True)
+    fecha = models.DateField(blank=True, null=True)
+    id_imagen = models.ForeignKey(Imagen, db_column='id_imagen')
+    id_usdest = models.CharField(max_length=10)
+
+    def __str__(self):
+            return self.idcompartida
+    class Meta:
+        managed = False
+        db_table = 'img_compartidas'
+
+
+class Persona(models.Model):
+    username = models.CharField(primary_key=True, max_length=10)
+    email = models.CharField(max_length=15, blank=True, null=True)
+    foto = models.CharField(max_length=10, blank=True, null=True)
+    password = models.CharField(max_length=10, blank=True, null=True)
+    tipo = models.CharField(max_length=7, blank=True, null=True)
+
+    def __str__(self):
+        return self.username
+
+    class Meta:
+        managed = False
+        db_table = 'persona'

@@ -6,7 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static "css/perfil.css" %}">
-    <link rel="stylesheet" href="{% static "css/principal.css" %}">
+    <link rel="stylesheet" href="{% static "w2.css" %}">
+
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" >
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" >
@@ -14,10 +15,6 @@
     <script src= "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ></script>
   </head>
   <body data-spy="scroll" data-target=".navbar" data-offset="50">
-    <header>
-
-    </header>
-
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -51,7 +48,6 @@
         </div>
       </div>
     </nav>
-
     <br>
     <div class="container">
       <div class="row">
@@ -107,9 +103,10 @@
 
                 <div class="row">
                   <div class='col-md-12'>
+
                     <div class="carousel slide media-carousel" id="media">
                       <div class="carousel-inner">
-                        <div class="item  active">
+                        <div class="item active">
                           <div class="row">
                             <div class="col-md-6">
                               <a class="thumbnail" href="#"><img alt=".." src="{% static "img/carrusel/2.jpg" %}"></a>
@@ -159,93 +156,62 @@
           <div class="row">
             <div class="panel panel-primary">
               <div class="panel-heading">
-                <h3 class="panel-title">Shared Documents <i class="glyphicon glyphicon-star"></i>
+                <h3 class="panel-title">Shared Documents  <i class="glyphicon glyphicon-star"></i>
                   <a href="{% url 'web.views.workarea' %}" target="_top" >
                     <span class="glyphicon glyphicon-plus"></span></a>
                 </h3>
               </div>
               <div class="panel-body">
+                <!--FIRST ROW CAROUSEL-->
+
+                <div class="row">
+                  <div class='col-md-12'>
+
+                    <div class="carousel slide media-carousel" id="media2">
+                      <div class="carousel-inner">
+                        <div class="item  active">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <a class="thumbnail" href="#"><img alt=".." src="{% static "img/uml1.jpg" %}"></a>
+                            </div>
+                            <div class="col-md-6">
+                              <a class="thumbnail" href="#"><img alt=".." src="{% static "img/uml2.jpg" %}"></a>
+                            </div>
+
+                          </div>
+                        </div>
+                        <div class="item">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <a class="thumbnail" href="#"><img alt=".." src="{% static "img/uml2.jpg" %}"></a>
+                            </div>
+                            <div class="col-md-6">
+                              <a class="thumbnail" href="#"><img alt=".." src="{% static "img/uml3.jpg" %}"></a>
+                            </div>
+
+                          </div>
+                        </div>
+                        <div class="item">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <a class="thumbnail" href="#"><img alt=".." src="{% static "img/uml2.jpg" %}"></a>
+                            </div>
+                            <div class="col-md-6">
+                              <a class="thumbnail" href="#"><img alt=".." src="{% static "img/uml1.jpg" %}"></a>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      <a data-slide="prev" href="#media2" class="left carousel-control">‹</a>
+                      <a data-slide="next" href="#media2" class="right carousel-control">›</a>
+                    </div>
+                  </div>
+                </div>
+                <!--SECOND ROW OPTION BUTTON-->
                 <div class="row">
 
-                  <div class="carousel slide"  id="myCarousel">
-                    <div class="carousel-inner">
-                      <div class="item active">
-                        <ul class="thumbnails">
-                          <li class="col-md-4">
-                            <div class="fff">
-                              <div class="thumbnail">
-                                <a href="#"><img src="{% static "img/uml1.jpg" %}" alt="diagrama1"></a>
-                              </div>
-                              <div class="caption">
-                                <h4>ER-Bases II</h4>
-                                <p>Shared With:<br>+ Angely Oyola</p>
-                                <a href="workarea.html" target="_top" >
-                                  <span class="glyphicon glyphicon-pencil"></span></a>
-                              </div>
-                            </div>
-                          </li>
-                          <li class="col-md-4">
-                            <div class="fff">
-                              <div class="thumbnail">
-                                <a href="#"><img src="{% static "img/uml4.jpg" %}" alt="diagrama3"></a>
-                              </div>
-                              <div class="caption">
-                                <h4>Diagrama1</h4>
-                                <p>Shared With:<br>+ Kattya Desiderio</p>
-                                <a href="workarea.html" target="_top" >
-                                  <span class="glyphicon glyphicon-pencil"></span></a>
-                              </div>
-                            </div>
-                          </li>
-
-                        </ul>
-                      </div><!-- /Slide1 -->
-                      <div class="item">
-                        <ul class="thumbnails">
-                          <li class="col-md-4">
-                            <div class="fff">
-                              <div class="thumbnail">
-                                <a href="#"><img src="{% static "img/uml3.jpg" %}" alt="diagrama3"></a>
-                              </div>
-                              <div class="caption">
-                                <h4>Diag ER</h4>
-                                <p>Shared With:<br>+ Stephy Quimba <br>+ Sianna Puente</p>
-                                <a href="workarea.html" target="_top" >
-                                  <span class="glyphicon glyphicon-pencil"></span></a>
-                              </div>
-                            </div>
-                          </li>
-                          <li class="col-md-4">
-                            <div class="fff">
-                              <div class="thumbnail">
-                                <a href="#"><img src="{% static "img/uml4.jpg" %}" alt="diagrama4"></a>
-                              </div>
-                              <div class="caption">
-                                <h4>Components</h4>
-                                <p>Shared With:<br>+ Angely Oyola <br>+ Sianna Puente</p>
-                                <a href="workarea.html" target="_top" >
-                                  <span class="glyphicon glyphicon-pencil"></span></a>
-                              </div>
-                            </div>
-                          </li>
-
-                        </ul>
-                      </div><!-- /Slide2 -->
-                    </div>
-
-                    <nav>
-                      <ul class="control-box pager">
-                        <li><a data-slide="prev" href="#myCarousel" class=""><i class="glyphicon glyphicon-chevron-left"></i></a></li>
-                        <li><a data-slide="next" href="#myCarousel" class=""><i class="glyphicon glyphicon-chevron-right"></i></a></li>
-                      </ul>
-                    </nav>
-                    <!-- /.control-box -->
-
-
-
                 </div>
-
-
               </div>
             </div>
 
@@ -258,10 +224,11 @@
   </div>
 
   <footer>
-    <small>Proyecto DAW &copy; 2015</small>
+     <p style="text-align:center;">
+     <small class="text-center"> Proyecto DAW &copy; 2015</small></p>
     <hr>
     <div class="text-center center-block">
-      <p class="txt-railway">- Modelador -</p>
+      <p class="txt-railway" >- Modelador -</p>
       <br />
       <a href="https://www.facebook.com"><i id="social-fb" class="fa fa-facebook-square fa-3x social"></i></a>
       <a href="https://twitter.com"><i id="social-tw" class="fa fa-twitter-square fa-3x social"></i></a>

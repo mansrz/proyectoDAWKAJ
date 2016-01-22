@@ -1,7 +1,15 @@
-from django.shortcuts import render, redirect
+# -*- coding: utf-8 -*-
+from django.core.urlresolvers import reverse
+from django.core.serializers.json import *
+from django.shortcuts import render, redirect, render_to_response
 from django.contrib.auth import authenticate,login
-from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest,HttpResponseNotAllowed,HttpResponseNotFound,HttpResponseForbidden,JsonResponse
 from web.models import *
+from suds.xsd.doctor import ImportDoctor, Import
+from suds.client import Client
+from django.template import RequestContext
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.template.context_processors import csrf
 from suds.xsd.doctor import ImportDoctor, Import
 from suds.client import Client
 
@@ -63,3 +71,9 @@ def perfil(request):
 
 def workarea(request):
     return render(request,'workarea.html',{})
+
+def mostrarImagen(request):
+    print("hola")
+    if request.method == 'GET'  :
+            imagenes = Imagen.objects.all()[:1]
+    return JsonResponse(imagenes[0].json, safe = False)

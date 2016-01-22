@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^logout/', 'web.views.logout'),
     url(r'^perfil/', 'web.views.perfil'),
     url(r'^workarea/', 'web.views.workarea'),
+    url(r'^imagen/', 'web.views.mostrarImagen'),
     url(r'^$', 'web.views.home'),
 ]

@@ -92,19 +92,28 @@
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
     background-color: #555;
 
-/*Carrito -Angely*/
-#carrito{
-  width: 100vw;
-  height: 100vh;
-  margin-top: 40px;
-  margin-left: 30px;
-    .position : absolute;
-  clear:  both;
+
+  .droppableCar{
+      width: 100vw;
+      /*height: 100vh;*/
+      margin-top: 40px;
+      margin-left: 30px;
+      .position : absolute;
+      clear:  both;
+    }
+
+.Paleta{
+   width:80px;
+   height:80px;
+
 }
-      .Paleta{
-        width:80px;
-        height:80px;
-      }
-      #dragLabeldiv{
-        width:50px;
-      }
+
+#dragLabeldiv{
+  width:50px;
+}
+.sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+}
+.row.content {height: 450px}
+    
