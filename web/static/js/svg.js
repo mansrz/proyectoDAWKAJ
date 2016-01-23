@@ -1,9 +1,13 @@
 
     $(document).on('ready', function () {
 
-	  $('#btnGuardarAttr').click(function(){
+	  $('#btnGuardarArchivo').click(function(){
 		  var json = JSON.stringify(graphLienzo);
-		  $.post('/guardarImagen/',{'ruta':json,  'csrfmiddlewaretoken' : $('input[name="csrfmiddlewaretoken"]').val()}, function(data){
+      var nombre =   $('#nombre').val();
+      var descripcion =   $('#descripcion').val();
+      console.log(nombre);
+      console.log(descripcion);
+		  $.post('/guardarImagen/',{'ruta':json, 'nombre':nombre,'descripcion':descripcion, 'csrfmiddlewaretoken' : $('input[name="csrfmiddlewaretoken"]').val()}, function(data){
 			 console.log(data);
 		  });
 	  });

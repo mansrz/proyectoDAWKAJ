@@ -21,7 +21,7 @@ class Imagen(models.Model):
     nombre = models.CharField(max_length=15, blank=True, null=True)
     descripcion = models.CharField(max_length=15, blank=True, null=True)
     ruta = models.TextField(blank=True, null=True)
-    idcreador = models.ForeignKey('Persona', db_column='idcreador', blank=True, null=True)
+    idcreador = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -32,20 +32,8 @@ class ImgCompartidas(models.Model):
     idcompartida = models.AutoField(primary_key=True)
     fecha = models.DateField(blank=True, null=True)
     id_imagen = models.ForeignKey(Imagen, db_column='id_imagen')
-    id_usdest = models.CharField(max_length=10)
+    id_usdest = models.CharField(max_length=30)
 
     class Meta:
         managed = False
         db_table = 'img_compartidas'
-
-
-class Persona(models.Model):
-    username = models.CharField(primary_key=True, max_length=10)
-    email = models.CharField(max_length=15, blank=True, null=True)
-    foto = models.CharField(max_length=10, blank=True, null=True)
-    password = models.CharField(max_length=10, blank=True, null=True)
-    tipo = models.CharField(max_length=7, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'persona'

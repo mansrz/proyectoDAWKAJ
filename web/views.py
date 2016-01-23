@@ -96,14 +96,21 @@ def cargarImagen(request):
 		#id = requeste.GET.get('id',None)
 		#response = Imagen.object.get(pk = id)
 		response = Imagen.objects.all()
-		return JsonResponse( response[7].ruta, safe = False)
+		return JsonResponse( response[1].ruta, safe = False)
 
 def guardarImagen(request):
-	if request.method == 'POST':
-		ruta = request.POST.get('ruta', None)
-		if ruta is None:
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre', None)
+        descripcion = request.POST.get('descripcion', None)
+        ruta   = request.POST.get('ruta', None)
+        if ruta is None:
 			return HttpResponseBadRequest()
-		imagen = Imagen()
-		imagen.ruta = ruta
-		imagen.save()
-		return HttpResponse()
+        else :
+            imagen = Imagen()
+            imagen.ruta = ruta
+            imagen.nombre = nombre
+            imagen.descripcion= descripcion
+            print(request.user.username)
+            imagen.idcreador = request.user.username
+            imagen.save()
+	return HttpResponse()
