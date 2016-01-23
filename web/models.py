@@ -9,7 +9,6 @@
 # into your database.
 from __future__ import unicode_literals
 
-
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login
@@ -21,12 +20,9 @@ class Imagen(models.Model):
     idimagen = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=15, blank=True, null=True)
     descripcion = models.CharField(max_length=15, blank=True, null=True)
-    ruta = models.CharField(max_length=2000, blank=True, null=True)
+    ruta = models.TextField(blank=True, null=True)
     idcreador = models.ForeignKey('Persona', db_column='idcreador', blank=True, null=True)
-    json = models.TextField(blank=True, null=True)
 
-    def __str__(self):
-            return self.idimagen
     class Meta:
         managed = False
         db_table = 'imagen'
@@ -38,8 +34,6 @@ class ImgCompartidas(models.Model):
     id_imagen = models.ForeignKey(Imagen, db_column='id_imagen')
     id_usdest = models.CharField(max_length=10)
 
-    def __str__(self):
-            return self.idcompartida
     class Meta:
         managed = False
         db_table = 'img_compartidas'
@@ -51,9 +45,6 @@ class Persona(models.Model):
     foto = models.CharField(max_length=10, blank=True, null=True)
     password = models.CharField(max_length=10, blank=True, null=True)
     tipo = models.CharField(max_length=7, blank=True, null=True)
-
-    def __str__(self):
-        return self.username
 
     class Meta:
         managed = False

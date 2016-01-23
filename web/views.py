@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 from django.core.urlresolvers import reverse
 from django.core.serializers.json import *
 from django.shortcuts import render, redirect, render_to_response
 from django.contrib.auth import authenticate,login
-from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest,HttpResponseNotAllowed,HttpResponseNotFound,HttpResponseForbidden,JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse, HttpResponseBadRequest,HttpResponseNotAllowed,HttpResponseNotFound,HttpResponseForbidden
 from web.models import *
 from suds.xsd.doctor import ImportDoctor, Import
 from suds.client import Client
@@ -12,6 +11,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.context_processors import csrf
 from suds.xsd.doctor import ImportDoctor, Import
 from suds.client import Client
+from django.core import serializers
 
 #funcion logout
 class AutoLogout:
@@ -76,4 +76,28 @@ def mostrarImagen(request):
     print("hola")
     if request.method == 'GET'  :
             imagenes = Imagen.objects.all()[:1]
-    return JsonResponse(imagenes[0].json, safe = False)
+            response = render_to_response(
+        'json/imagenes.json',
+        {'imagenes': imagenes}, #mismo etiqueta en el json
+        context_instance=RequestContext(request)
+            )
+    response['Content-Type'] = 'application/json; charset=utf-8'
+    response['Cache-Control'] = 'no-cache'
+    return response
+	
+def cargarImagen(request):
+	if request.method == 'GET':
+		#id = requeste.GET.get('id',None)
+		#response = Imagen.object.get(pk = id)
+		response = Imagen.objects.all()
+		return JsonResponse( response[7].ruta, safe = False)
+		
+def guardarImagen(request):
+	if request.method == 'POST':
+		ruta = request.POST.get('ruta', None)
+		if ruta is None:
+			return HttpResponseBadRequest()
+		imagen = Imagen()
+		imagen.ruta = ruta
+		imagen.save()
+		return HttpResponse()

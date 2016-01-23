@@ -106,7 +106,7 @@
           							  <div class="panel-heading">Atributos Tabla</div>
                           <div class="panel-body">
                             <textarea class="form-control" id="InputAttr" disabled="true"></textarea>
-                            <button type="button" id= "btnGuardarAttr"class="btn btn-success">Guardar</button>
+                            <button type="button" id= "btnGuardarAttr" class="btn btn-success">Guardar</button>
                          </div>
 
                         </div>
@@ -156,5 +156,6 @@
 
 
     </body>
+	{% csrf_token %}
   <script src="{% static 'js/svg.js' %}"></script>
 </html>

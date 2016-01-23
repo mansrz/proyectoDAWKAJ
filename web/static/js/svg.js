@@ -1,6 +1,19 @@
 
     $(document).on('ready', function () {
 
+	  $('#btnGuardarAttr').click(function(){
+		  var json = JSON.stringify(graphLienzo);
+		  $.post('/guardarImagen/',{'ruta':json,  'csrfmiddlewaretoken' : $('input[name="csrfmiddlewaretoken"]').val()}, function(data){
+			 console.log(data);
+		  });
+	  });
+	  $('#btnEliminarTabla').click(function(){
+		  $.get('/cargarImagen/',function(data){
+			  console.log(data);
+			  graphLienzo.fromJSON((JSON.parse(data)));
+			});
+	  });
+	  /*
       $.ajax({
               type: "GET",
               url:'/imagen',
@@ -9,28 +22,35 @@
               contenType:"application/Json; charset=utf-8",
 
               success: function(imagenes){
-              //  console.log(imagenes);
-                //var data = JSON.parse(imagenes);
-                var data = imagenes;
-              //  $("#rutaJson").text(data);
 
-
+                    $.each(imagenes, function(i,imagen){
+                      $('#ahoja2').text(imagen.Nombre);
+                      //$('#rutaJson').text(unescape(imagen.Ruta));
+                      var data = JSON.parse(imagen.Ruta);
+                      console.log(data);
+                     $("#carrito2").append(
+                      "<p>"+ imagen.ImagenId+"</p>"+
+                      "<p>"+ imagen.Nombre+"</p>"+
+                      "<p>"+ imagen.Descripcion+"</p>"+
+                      "<p>"+ imagen.Ruta+"</p>"+
+                      "<p>"+ imagen.CreadorId+"</p>"
+                    );
                     graphLienzo.clear();
                     var paper = new joint.dia.Paper({
-                        el: $('#carrito2'),
-                        width: 800,
-                        height: 600,
-                        gridSize: 1,
-                        model: graphLienzo,
-                        defaultLink: new joint.dia.Link({
-                        attrs: { '.marker-target': { d: 'M 10 0 L 0 5 L 10 10 z' } ,
-                        '.marker-source': { d: 'M 10 0 L 0 5 L 10 10 z' }}
-                        }),
-                      });
-                    //  alert(data);
-                      graphLienzo.fromJSON(data);
+                      el: $('#carrito2'),
+                      width: 800,
+                      height: 600,
+                      gridSize: 1,
+                      model: graphLienzo,
+                      defaultLink: new joint.dia.Link({
+                      attrs: { '.marker-target': { d: 'M 10 0 L 0 5 L 10 10 z' } ,
+                      '.marker-source': { d: 'M 10 0 L 0 5 L 10 10 z' }}
+                      }),
+                    });
 
-                   //fin
+                      graphLienzo.fromJSON(JSON.parse(data));
+
+  								});
 
 
               },
@@ -38,7 +58,7 @@
                 console.log(data.responseText);
 
               }
-        });
+        });*/
 
 	  <!-- JOINT JS
 		var erd = joint.shapes.erd;
@@ -235,24 +255,24 @@ paper.on('cell:pointerclick', function(cellView, evt, x, y) {
 	<!-- ***********************************  SET ATRIBUTOS     *******************************************-->
 
 
-	$('#btnGuardarAttr').click(function(){
+	/*$('#btnGuardarAttr').click(function(){
 		cellSelected.attr({
 			'.label': {text: $('#InputAttr').val()}
 		});
 		$('#InputAttr').prop('disabled',true);
 
-	});
+	});*/
 
 
 		<!-- ***********************************  ELIMINAR TABLA *******************************************-->
 
 
-	$('#btnEliminarTabla').click(function(){
+	/*$('#btnEliminarTabla').click(function(){
 	if(cellSelectedToDelete){
 		cellSelectedToDelete.remove();
 		}
 		else alert('Seleccione tabla a eliminar');
-	});
+	});*/
 
 
 
