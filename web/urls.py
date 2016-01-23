@@ -13,6 +13,7 @@ urlpatterns = [
 	url(r'^guardarImagen/', 'web.views.guardarImagen'),
 	url(r'^cargarImagen/', 'web.views.cargarImagen'),
     url(r'^workarea/', 'web.views.workarea'),
+    url(r'^bhome/', 'web.views.backhome'),
     url(r'^imagen/', 'web.views.mostrarImagen'),
     url(r'^$', 'web.views.home'),
 ]

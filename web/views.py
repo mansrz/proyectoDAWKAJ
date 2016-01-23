@@ -31,6 +31,12 @@ class AutoLogout:
 def home(request):
     return render(request,'index.html',{})
 
+def backhome(request):
+    return redirect('/')
+
+def backperfil(request):
+    return redirect('/perfil/')
+
 def login(request):
     if request.method == 'POST':
         try:
@@ -70,7 +76,7 @@ def perfil(request):
     return render(request,'perfil.html',{})
 
 def workarea(request):
-    return render(request,'workarea.html',{})
+    return render(request,'workarea2.html',{})
 
 def mostrarImagen(request):
     print("hola")
@@ -84,14 +90,14 @@ def mostrarImagen(request):
     response['Content-Type'] = 'application/json; charset=utf-8'
     response['Cache-Control'] = 'no-cache'
     return response
-	
+
 def cargarImagen(request):
 	if request.method == 'GET':
 		#id = requeste.GET.get('id',None)
 		#response = Imagen.object.get(pk = id)
 		response = Imagen.objects.all()
 		return JsonResponse( response[7].ruta, safe = False)
-		
+
 def guardarImagen(request):
 	if request.method == 'POST':
 		ruta = request.POST.get('ruta', None)

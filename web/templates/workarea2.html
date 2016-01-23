@@ -1,0 +1,228 @@
+
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ejemplo de HTML5" />
+  <meta name="keywords" content="HTML5, CSS3, Javascript" />
+  <link rel="stylesheet" href="{% static "css/perfil.css" %}">
+  <link rel="stylesheet" href="{% static "w2.css" %}">
+  <link rel="stylesheet" href="{% static 'js/joint.css' %}">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" >
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" >
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" >
+  <script src="{% static 'js/xepOnline.jqPlugin.js' %}"></script>
+  <script src="{% static 'js/lodash.min.js' %}"></script>
+  <script src="{% static 'js/backbone-min.js' %}"></script>
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/joint.js' %}"></script>
+  <script src= "http://code.jquery.com/jquery-1.11.3.min.js" ></script>
+  <script src= "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ></script>
+  <title>Diagramas ER</title>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 800px}
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 800px;
+    }
+
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;}
+    }
+  </style>
+</head>
+<body>
+    	<nav class="navbar navbar-inverse ">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                      <span class="icon-bar"><a href="/bhome/">Index</a></span>
+                  </button>
+                  <a class="navbar-brand" href="/bhome/"><img src="{% static "img/logo1.png" %}"  class="img-circle" alt="Cinque Terre" width="30" height="30"></a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                  <ul class="nav navbar-nav">
+                     <li><a id= "new" href="/perfil/">Perfil</a></li>
+                     <li><a id= "new" href="#">New</a></li>
+          				   <li><a href="#myModal" data-toggle="modal" data-target="#myModal">Open</a></li>
+                     <li><a  href="#modalGuardar" data-toggle="modal" data-target="#modalGuardar">Save</a></li>
+          				   <li class="dropdown">
+            				   <a class="dropdown-toggle" data-toggle="dropdown" href="#">Download<span class="caret"></span></a>
+              					  <ul class="dropdown-menu">
+                						<li><a id= "btnDownloadJson" href="">As SVG</a></li>
+                						<li class="divider"></li>
+                						<li><a id= "btnDownloadPdf" onclick="return xepOnline.Formatter.Format('carrito',{pageWidth:'11in', pageHeight:'8.5in',render:'download'});">As PDF</a></li>
+
+              					  </ul>
+          					 </li>
+                     <li><a href="#modalHelp" data-toggle="modal" data-target="#modalHelp">Help</a></li>
+
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span  class="glyphicon glyphicon-user"></span>  {{ request.user }}  <span class="caret"></span></a></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="index.html" target="_top">log out</a></li>
+                        </ul>
+                      </li>
+                  </ul>
+
+                </div>
+
+              </div>
+      </nav>
+
+  		<!--+AREA CENTRAL -->
+
+      <div class="container-fluid text-center">
+        <div class="row content">
+          <div class="col-sm-8 text-left">
+                  <ul class="nav nav-tabs">
+                     <li class="active"><a data-toggle="tab" href="#hoja1">Hoja 1</a></li>
+                     <li><a id="ahoja2" data-toggle="tab" href="#hoja2">Hoja 2</a></li>
+                     <li><a data-toggle="tab" href="#hoja3">Hoja 3</a></li>
+                  </ul>
+                 <div class="tab-content">
+                   <div id="hoja1" class="tab-pane fade in active">
+                     <div id= "carrito" class="droppableCar" ></div>
+                   </div>
+                   <div id="hoja2" class="tab-pane fade">
+                     <div id= "carrito2" class="droppableCar" ></div>
+                   </div>
+                   <div id="hoja3" class="tab-pane fade">
+                     <div id= "carrito3" class="droppableCar" ></div>
+                   </div>
+
+                 </div>
+          </div>
+          <div class="col-sm-4 sidenav">
+           <div class="well">
+             <label> Propiedades </label></br></br>
+           <div class="well" id="divAtributoTabla">
+               <label> Atributos </label></br>
+               <textarea class="form-control" id="InputAttr" disabled="true"></textarea>
+               </br>
+                 <button type="button" id= "btnGuardarAttr" class="btn btn-success">Guardar</button>
+           </div>
+           <div class="well" id="divEliminar">
+
+               <button type="button" id= "btnEliminarTabla"class="btn btn-danger">Eliminar</button>
+                <button type="button" id= "btnLimpiarTabla"class="btn btn-primary">Limpiar</button>
+           </div>
+           </div>
+             </div>
+          </div>
+        </div>
+        <!--CARGAR ARCHIVO-->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Cargar Archivo</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label for="cargarArchivo">Cargar Archivo : </label>
+                    <input class="form-control" id="cargarArchivo" placeholder="Ruta del Archivo" type="file">  <!--FALTA Bootstrap File Input -->
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-info btn-lg" data-dismiss="modal" id="btnCargar" >Subir</button>
+                </div>
+              </div>
+            </div>
+        </div>
+        <!--HELP US-->
+        <div class="modal fade" id="modalHelp">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">ABOUT US</h4>
+                </div>
+                <div class="modal-body">
+                 <p>Pasossss!!<p>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <!--GUARDAR-->
+      <div class="modal fade" id="modalGuardar">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Guardar </h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                    <label for="nombre">Nombre del Archivo:</label>
+                    <input type="nombre" class="form-control" id="nombre">
+                  </div>
+                  <div class="form-group">
+                    <label for="nombre">Descripci&oacute;n:</label>
+                    <textarea class="form-control" id="descripcion"></textarea>
+
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" id= "btnGuardarArchivo"class="btn btn-success">Guardar</button>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+      <!--END CONTAINER-->
+
+
+      <footer class="container-fluid text-center">
+           <p style="text-align:center;">
+           <small class="text-center"> Proyecto DAW &copy; 2015</small></p>
+          <hr>
+          <div class="text-center center-block">
+            <p class="txt-railway" >- Modelador -</p>
+            <br />
+            <a href="https://www.facebook.com"><i id="social-fb" class="fa fa-facebook-square fa-3x social"></i></a>
+            <a href="https://twitter.com"><i id="social-tw" class="fa fa-twitter-square fa-3x social"></i></a>
+            <a href="https://plus.google.com"><i id="social-gp" class="fa fa-google-plus-square fa-3x social"></i></a>
+            <a href="https://github.com"><i id="social" class="fa fa-github-square fa-3x social-gb"></i></a>
+            <a href="https://www.linkedin.com"> <i id="social" class="fa fa-linkedin-square fa-3x social-li"></i></a>
+          </div>
+          <hr>
+
+      </footer>
+
+</body>
+{% csrf_token %}
+<script src="{% static 'js/svg.js' %}"></script>
+</html>

@@ -68,7 +68,7 @@
 
 		var paper = new joint.dia.Paper({
 			el: $('#carrito'),
-			width: 800,
+			width: 950,
 			height: 600,
 			gridSize: 1,
 			model: graphLienzo,
@@ -103,77 +103,6 @@ var t1 = new joint.shapes.devs.Model({
 
 
 
-
-
-//graphLienzo.addCell(t1);
-
-
-var m1 = {
-
-    mammal: new uml.Interface({
-        position: { x:0  , y: 0 },
-        size: { width: 120, height: 100 },
-        name: 'Mammal',
-        attributes: ['dob: Date'],
-
-        methods: ['+ setDateOfBirth()','+ getAgeAsDays()'],
-        attrs: {
-            '.uml-class-name-rect': {
-                fill: '#feb662',
-                stroke: '#ffffff',
-                'stroke-width': 0.5
-            },
-            '.uml-class-attrs-rect, .uml-class-methods-rect': {
-                fill: '#fdc886',
-                stroke: '#fff',
-                'stroke-width': 0.5
-            },
-            '.uml-class-attrs-text': {
-                ref: '.uml-class-attrs-rect',
-                'ref-y': 0.5,
-                'y-alignment': 'middle'
-            },
-            '.uml-class-methods-text': {
-                ref: '.uml-class-methods-rect',
-                'ref-y': 0.5,
-                'y-alignment': 'middle'
-            }
-
-        }
-    })
-};
-
-
-
-
-<!-- FLECHAS
-
-	 var f1 = new joint.dia.Link({
-    source: { x: 10, y: 20 },
-    target: { x: 100, y: 20 },
-    attrs: {}
-});
-
-
-f1.attr({
-    '.connection': { stroke: '#222138' },
-    '.marker-source': { fill: '#31d0c6', stroke: 'none', d: 'M 10 0 L 0 5 L 10 10 z' },
-    '.marker-target': { fill: '#fe854f', stroke: '#7c68fc', d: 'M 10 0 L 0 5 L 10 10 z' }
-});
-var f2 = new joint.dia.Link({
-    source: { x: 10, y: 80 },
-    target: { x: 100, y: 80 },
-    attrs: {}
-});
-
-f2.attr({
-    '.connection': { stroke: '#fe854f', 'stroke-width': 4 },
-    '.marker-source': { stroke: '#fe854f', fill: '#fe854f', d: 'M 10 0 L 0 5 L 10 10 z' },
-    '.marker-target': { stroke: '#fe854f', fill: '#fe854f', d: 'M 10 0 L 0 5 L 10 10 z' }
-});
-
-
-
 <!-- ************************************************** TRIGGERS *************************************************
 
 
@@ -192,17 +121,17 @@ var cellSelected;
 paper.on('cell:pointerdblclick', function(cellView, evt, x, y) {
 	if (cellView.model instanceof joint.shapes.devs.Model) { //interesada solo en models no en links
 		cellSelected= cellView.model; // estoy selccionando el model para que se le cambien los atributos
+	//	$('#InputAttr').prop('disabled',false);
 	}
 
 });
-
 
 
 <!-- click sobre tabla para seleccionarla y eliminarla -->
 paper.on('cell:pointerclick', function(cellView, evt, x, y) {
 	if (cellView.model instanceof joint.shapes.devs.Model) { //interesada solo en models no en links
 		cellSelectedToDelete= cellView.model; // estoy selccionando el model para que se le cambien los atributos
-		$('#InputAttr').prop('disabled',false);
+		//$('#InputAttr').prop('disabled',false);
   }
 });
 <!-- **************************************** FIN TIGGERS ****************************************************
@@ -254,15 +183,15 @@ paper.on('cell:pointerclick', function(cellView, evt, x, y) {
 
 	<!-- ***********************************  SET ATRIBUTOS     *******************************************-->
 
-
-	/*$('#btnGuardarAttr').click(function(){
+/*
+	$('#btnGuardarAttr').click(function(){
 		cellSelected.attr({
 			'.label': {text: $('#InputAttr').val()}
 		});
 		$('#InputAttr').prop('disabled',true);
 
-	});*/
-
+	});
+*/
 
 		<!-- ***********************************  ELIMINAR TABLA *******************************************-->
 
