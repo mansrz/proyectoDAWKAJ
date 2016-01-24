@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 from django.core.serializers.json import *
 from django.shortcuts import render, redirect, render_to_response
 from django.contrib.auth import authenticate,login
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse, HttpResponseBadRequest,HttpResponseNotAllowed,HttpResponseNotFound,HttpResponseForbidden
 from web.models import *
 from suds.xsd.doctor import ImportDoctor, Import
@@ -93,6 +94,28 @@ def mostrarImagen(request):
 
 def cargarImagenBase(request):
     print("entre a cargar imagen")
+
+def crearUsuario(request):
+    if request.method == 'POST':
+        username = request.POST.get('username', None)
+        email = request.POST.get('email', None)
+        password = request.POST.get('password',None)
+
+        if username is None:
+            return HttpResponseBadRequest()
+        else :
+            nuser = User()
+            nuser.password = password
+            nuser.is_superuser = 0
+            nuser.username = username
+            nuser.email = email
+            nuser.is_staff=0
+            nuser.is_active=1
+            import datetime
+            nuser.date_joined =datetime.datetime.now()
+            nuser.save()
+    return HttpResponse()
+
 
 def mostrarUsuarios(request):
     print("entro mostrarUsuarios")

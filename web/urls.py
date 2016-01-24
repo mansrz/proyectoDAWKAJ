@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^bhome/', 'web.views.backhome'),
     url(r'^edatos/', 'web.views.editarDatosPersona'),
     url(r'^mUsers/', 'web.views.mostrarUsuarios'),
+    url(r'^cUser/', 'web.views.crearUsuario'),
     url(r'^imagen/', 'web.views.mostrarImagen'),
     url(r'^$', 'web.views.home'),
 ]

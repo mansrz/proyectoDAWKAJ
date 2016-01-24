@@ -11,58 +11,24 @@
 			 console.log(data);
 		  });
 	  });
-	  $('#btnEliminarTabla').click(function(){
+
+	  $('#btnCargarImagen').click(function(){
 		  $.get('/cargarImagen/',function(data){
 			  console.log(data);
 			  graphLienzo.fromJSON((JSON.parse(data)));
 			});
 	  });
-	  /*
-      $.ajax({
-              type: "GET",
-              url:'/imagen',
-              async: true,
-              dataType:"json",
-              contenType:"application/Json; charset=utf-8",
 
-              success: function(imagenes){
+    $('#chkshared').attr('checked', false);
+    $("#divshared").css("visibility", "hidden");
 
-                    $.each(imagenes, function(i,imagen){
-                      $('#ahoja2').text(imagen.Nombre);
-                      //$('#rutaJson').text(unescape(imagen.Ruta));
-                      var data = JSON.parse(imagen.Ruta);
-                      console.log(data);
-                     $("#carrito2").append(
-                      "<p>"+ imagen.ImagenId+"</p>"+
-                      "<p>"+ imagen.Nombre+"</p>"+
-                      "<p>"+ imagen.Descripcion+"</p>"+
-                      "<p>"+ imagen.Ruta+"</p>"+
-                      "<p>"+ imagen.CreadorId+"</p>"
-                    );
-                    graphLienzo.clear();
-                    var paper = new joint.dia.Paper({
-                      el: $('#carrito2'),
-                      width: 800,
-                      height: 600,
-                      gridSize: 1,
-                      model: graphLienzo,
-                      defaultLink: new joint.dia.Link({
-                      attrs: { '.marker-target': { d: 'M 10 0 L 0 5 L 10 10 z' } ,
-                      '.marker-source': { d: 'M 10 0 L 0 5 L 10 10 z' }}
-                      }),
-                    });
-
-                      graphLienzo.fromJSON(JSON.parse(data));
-
-  								});
-
-
-              },
-              error: function(data){
-                console.log(data.responseText);
-
-              }
-        });*/
+    $('#chkshared').on( 'click', function() {
+        if( $(this).is(':checked') ){
+              $("#divshared").css("visibility", "visible");
+        } else {
+              $("#divshared").css("visibility", "hidden");
+        }
+    });
 
 	  <!-- JOINT JS
 		var erd = joint.shapes.erd;
@@ -125,7 +91,8 @@ var cellSelected;
 paper.on('cell:pointerdblclick', function(cellView, evt, x, y) {
 	if (cellView.model instanceof joint.shapes.devs.Model) { //interesada solo en models no en links
 		cellSelected= cellView.model; // estoy selccionando el model para que se le cambien los atributos
-	//	$('#InputAttr').prop('disabled',false);
+     $("#divAtributoTabla").css("visibility", "visible");
+		$('#InputAttr').prop('disabled',false);
 	}
 
 });
@@ -143,6 +110,7 @@ paper.on('cell:pointerclick', function(cellView, evt, x, y) {
 
 	  <!-- GUARDAR SVG
 	    var template = 0, svg, objeto1, objeto2, newel;
+      /*
 		   $('#save').on('click', function(){
 
 			 var json = JSON.stringify(graphLienzo);
@@ -150,7 +118,7 @@ paper.on('cell:pointerclick', function(cellView, evt, x, y) {
 			alert("SVG creado con éxito");
 		  });
 
-	<!-- FIN GUARDAR SVG
+	<!-- FIN GUARDAR SVG*/
 
 
 
@@ -187,54 +155,35 @@ paper.on('cell:pointerclick', function(cellView, evt, x, y) {
 
 	<!-- ***********************************  SET ATRIBUTOS     *******************************************-->
 
-/*
+
 	$('#btnGuardarAttr').click(function(){
 		cellSelected.attr({
 			'.label': {text: $('#InputAttr').val()}
 		});
+    $('#InputAttr').val("");
 		$('#InputAttr').prop('disabled',true);
-
+    $("#divAtributoTabla").css("visibility", "hidden");
 	});
-*/
+
 
 		<!-- ***********************************  ELIMINAR TABLA *******************************************-->
 
 
-	/*$('#btnEliminarTabla').click(function(){
+	$('#btnEliminarTabla').click(function(){
 	if(cellSelectedToDelete){
 		cellSelectedToDelete.remove();
+    $("#divAtributoTabla").css("visibility", "hidden");
 		}
 		else alert('Seleccione tabla a eliminar');
-	});*/
+	});
 
+  $('#btnLimpiarTabla').click(function(){
+    var limpiar = "";
+    cellSelected.attr({
+			'.label': {text: limpiar}
+		});
 
+	});
 
-	<!-- ******************************************* CARGAR ARCHIVO ***********************************************
-
-
-      /*SVG*/
-      $("#btnCargar").click(function () {
-
-  		 var data =
-          '{"cells":[{"type":"devs.Model","size":{"width":90,"height":90},"inPorts":["in1","in2"],"outPorts":["out"],"position":{"x":50,"y":50},"angle":0,"id":"70f7dfed-3c70-4235-af5a-f6bdf34c19d5","embeds":"","z":1,"attrs":{".label":{"text":"AJOS"},"rect":{"fill":"#feb662"},".inPorts circle":{"fill":"#16A085"},".outPorts circle":{"fill":"#E74C3C"},".inPorts>.port0>.port-label":{"text":"in1"},".inPorts>.port0>.port-body":{"port":{"id":"in1","type":"in"}},".inPorts>.port0":{"ref":".body","ref-y":0.25},".inPorts>.port1>.port-label":{"text":"in2"},".inPorts>.port1>.port-body":{"port":{"id":"in2","type":"in"}},".inPorts>.port1":{"ref":".body","ref-y":0.75},".outPorts>.port0>.port-label":{"text":"out"},".outPorts>.port0>.port-body":{"port":{"id":"out","type":"out"}},".outPorts>.port0":{"ref":".body","ref-y":0.5,"ref-dx":0}}}]}';
-
-        //  var graph = new joint.dia.Graph();
-          graphLienzo.clear();
-        /*  var paper = new joint.dia.Paper({
-            el: $('#carrito'),
-            width: 800,
-            height: 600,
-            gridSize: 1,
-            model: graphLienzo,
-            defaultLink: new joint.dia.Link({
-            attrs: { '.marker-target': { d: 'M 10 0 L 0 5 L 10 10 z' } ,
-            '.marker-source': { d: 'M 10 0 L 0 5 L 10 10 z' }}
-            }),
-          });*/
-
-
-          //  alert(data);
-          	graphLienzo.fromJSON(JSON.parse(data));
-                    });
-
- });
+//FIN DEL JQUERY
+});
