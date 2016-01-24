@@ -1,0 +1,10 @@
+{% spaceless %}
+[
+	{% for u in users %}
+	{
+		"username":"{{ u.username}}"
+
+	}{% if not forloop.last %},{% endif %}
+	{% endfor %}
+]
+{% endspaceless %}

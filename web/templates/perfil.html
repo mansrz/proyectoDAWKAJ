@@ -16,32 +16,30 @@
   </head>
   <body data-spy="scroll" data-target=".navbar" data-offset="50">
     <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"><a href="/bhome/">Index</a></span>
-        </button>
-        <a class="navbar-brand" href="/bhome/"><img src="{% static "img/logo1.png" %}" class="img-circle" alt="Cinque Terre" width="30" height="30"></a>
-      </div>
-      <div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <span class="glyphicon glyphicon-user"></span>  {{ request.user }}  <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#" class="pull-right"><img alt="User Pic" src="{% static "img/thumb/2.jpg" %}" class="img-thumbnail img-responsive " width="150" height="75"></a></li>
-                <li><a href="/logout/" target="_top">log out</a></li>
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"><a href="/bhome/">Index</a></span>
+            </button>
+            <a class="navbar-brand" href="/bhome/"><img src="{% static "img/logo1.png" %}" class="img-circle" alt="Cinque Terre" width="30" height="30"></a>
+          </div>
+          <div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <span class="glyphicon glyphicon-user"></span>  {{ request.user }}  <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#" class="pull-right"><img alt="User Pic" src="{% static "img/thumb/2.jpg" %}" class="img-thumbnail img-responsive " width="150" height="75"></a></li>
+                    <li><a href="/logout/" target="_top">log out</a></li>
+                  </ul>
+                </li>
               </ul>
-            </li>
-          </ul>
 
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </nav>
-
-
+    </nav>
     <br>
     <div class="container">
       <div class="row">
@@ -65,20 +63,22 @@
                     <td>Programming</td>
                   </tr>
                   <tr>
-                    <td>Name:</td>
-                    <td>Joyce Sarmiento</td>
+                    <td>Nombres:</td>
+                    <td id="nfirstname">{{request.user.first_name }}</td>
+                  </tr>
+                  <tr>
+                    <td>Apellidos:</td>
+                    <td id="nlastname">{{request.user.last_name }}</td>
                   </tr>
                   <tr>
                     <td>Email</td>
-                    <td><a href="mailto:info@support.com">info@support.com</a></td>
+                    <td><a href="mailto:info@support.com">{{request.user.email }}</a></td>
                   </tr>
-                  <tr>
-                    <td>Groups:</td>
-                    <td>DAW// Jazz Oyola y Kattya Desiderio</td>
-                  </tr>
+
                 </tbody>
               </table>
-
+            <p style="text-align:right;">
+              <button type="button" class="btn btn-default btn-lg" id="btnEditar" ><i class="glyphicon glyphicon-pencil"></i></button></p>
             </div>
           </div>
 
@@ -94,49 +94,12 @@
               </div>
               <div class="panel-body">
                 <!--FIRST ROW CAROUSEL-->
-
                 <div class="row">
                   <div class='col-md-12'>
-
-                    <div class="carousel slide media-carousel" id="media">
-                      <div class="carousel-inner">
-                        <div class="item active">
-                          <div class="row">
-                            <div class="col-md-6">
-                              <a class="thumbnail" href="#"><img alt=".." src="{% static "img/carrusel/2.jpg" %}"></a>
-                            </div>
-                            <div class="col-md-6">
-                              <a class="thumbnail" href="#"><img alt=".." src="{% static "img/carrusel/1.jpg" %}"></a>
-                            </div>
-
-                          </div>
-                        </div>
-                        <div class="item">
-                          <div class="row">
-                            <div class="col-md-6">
-                              <a class="thumbnail" href="#"><img alt=".." src="{% static "img/carrusel/3.jpg" %}"></a>
-                            </div>
-                            <div class="col-md-6">
-                              <a class="thumbnail" href="#"><img alt=".." src="{% static "img/carrusel/2.jpg" %}"></a>
-                            </div>
-
-                          </div>
-                        </div>
-                        <div class="item">
-                          <div class="row">
-                            <div class="col-md-6">
-                              <a class="thumbnail" href="#"><img alt=".." src="{% static "img/carrusel/5.png" %}"></a>
-                            </div>
-                            <div class="col-md-6">
-                              <a class="thumbnail" href="#"><img alt=".." src="{% static "img/carrusel/1.jpg" %}"></a>
-                            </div>
-
-                          </div>
-                        </div>
+                      <div id="imgCreados">
+                        <ul class="list-group" id="ulimg">
+                        </ul>
                       </div>
-                      <a data-slide="prev" href="#media" class="left carousel-control">‹</a>
-                      <a data-slide="next" href="#media" class="right carousel-control">›</a>
-                    </div>
                   </div>
                 </div>
                 <!--SECOND ROW OPTION BUTTON-->
@@ -217,6 +180,31 @@
     </div>
   </div>
 
+  <div class="modal fade" id="modalEditar">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Editar Perfil</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+                <label for="nombre">Nombres:</label>
+                <input type="nombre" class="form-control" id="nombre">
+              </div>
+              <div class="form-group">
+                <label for="nombre">Apellido:</label>
+                <input type="nombre" class="form-control" id="apellido">
+
+            </div>
+          </div>
+          <div class="modal-footer">
+                <button type="button" id= "btnGuardar" data-dismiss="modal" class="btn btn-success">Guardar</button>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
   <footer>
      <p style="text-align:center;">
      <small class="text-center"> Proyecto DAW &copy; 2015</small></p>
@@ -233,7 +221,7 @@
     <hr>
 
   </footer>
-
-
   </body>
+  	{% csrf_token %}
+  <script src="{% static 'js/perfil.js' %}"></script>
 </html>

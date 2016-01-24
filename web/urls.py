@@ -12,8 +12,11 @@ urlpatterns = [
     url(r'^perfil/', 'web.views.perfil'),
 	url(r'^guardarImagen/', 'web.views.guardarImagen'),
 	url(r'^cargarImagen/', 'web.views.cargarImagen'),
+    url(r'^cargarImagenBase/', 'web.views.cargarImagenBase'),
     url(r'^workarea/', 'web.views.workarea'),
     url(r'^bhome/', 'web.views.backhome'),
+    url(r'^edatos/', 'web.views.editarDatosPersona'),
+    url(r'^mUsers/', 'web.views.mostrarUsuarios'),
     url(r'^imagen/', 'web.views.mostrarImagen'),
     url(r'^$', 'web.views.home'),
 ]

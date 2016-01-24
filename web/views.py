@@ -81,7 +81,7 @@ def workarea(request):
 def mostrarImagen(request):
     print("hola")
     if request.method == 'GET'  :
-            imagenes = Imagen.objects.all()[:1]
+            imagenes = Imagen.objects.filter(idcreador=request.user.username)
             response = render_to_response(
         'json/imagenes.json',
         {'imagenes': imagenes}, #mismo etiqueta en el json
@@ -90,6 +90,39 @@ def mostrarImagen(request):
     response['Content-Type'] = 'application/json; charset=utf-8'
     response['Cache-Control'] = 'no-cache'
     return response
+
+def cargarImagenBase(request):
+    print("entre a cargar imagen")
+
+def mostrarUsuarios(request):
+    print("entro mostrarUsuarios")
+    if request.method == 'GET'  :
+            usuarios = Users.objects.all()
+            listUsuarios = list()
+            for u in usuarios:
+                 listUsuarios.append(u)
+            response = render_to_response(
+            'json/buscarUsers.json',
+            {'users': users},
+            context_instance=RequestContext(request)
+            )
+    response['Content-Type'] = 'application/json; charset=utf-8'
+    response['Cache-Control'] = 'no-cache'
+    return response
+
+def editarDatosPersona(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre', None)
+        apellido = request.POST.get('apellido', None)
+    if nombre is None:
+        return HttpResponseBadRequest()
+    else :
+        from django.contrib.auth.models import User
+        u = User.objects.get(username=request.user.username)
+        u.first_name = nombre;
+        u.last_name= apellido;
+        u.save();
+        return HttpResponse()
 
 def cargarImagen(request):
 	if request.method == 'GET':
