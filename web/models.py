@@ -46,7 +46,7 @@ class Imagen(models.Model):
 class ImgCompartidas(models.Model):
     idcompartida = models.AutoField(primary_key=True)
     fecha = models.DateField(blank=True, null=True)
-    id_imagen = models.ForeignKey(Imagen, db_column='id_imagen')
+    id_imagen = models.IntegerField()
     id_usdest = models.CharField(max_length=30)
 
     class Meta:

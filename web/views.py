@@ -141,11 +141,7 @@ def obtenerImgCompartidas(request):
         listimg = []
         for img in lst_imgc:
             idi = img.id_imagen
-            print("id imagen")
-            print(idi)
             imgu = Imagen.objects.get(idimagen=idi)
-            print("imagen")
-            print(imgu)
             listimg.append(imgu)
             response = render_to_response(
         'json/imgshared.json',

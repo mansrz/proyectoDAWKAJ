@@ -64,7 +64,12 @@
 
             success: function(imgs){
               $.each(imgs, function(i,img){
-               console.log("holi");
+                $("#ulcimg").append("<li  class='list-group-item'>"+
+                "<a href='' id="+ img.ImagenId + " class='linkear'>"+
+                 img.Nombre+
+                "</a>"+
+                 "</li>"
+                );
            });
             },
             error: function(data){
