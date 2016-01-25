@@ -2,6 +2,26 @@
 
     $(document).on('ready', function () {
 
+          $.urlParam = function(name){
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results==null){
+           return null;
+        }
+        else{
+           return results[1] || 0;
+        }
+    }
+    var idimgr =$.urlParam('id');
+    if(idimgr==null){
+      
+    }else {
+      console.log(idimgr);
+      $.get('/cImagen/',{'IdImg':idimgr},function(data){
+        graphLienzo.fromJSON((JSON.parse(data)));
+      });
+    }
+
+
       $.ajax({
            type: "GET",
            url:'/mUsers',

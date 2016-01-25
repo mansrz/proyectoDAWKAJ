@@ -94,9 +94,21 @@ def mostrarImagen(request):
     response['Cache-Control'] = 'no-cache'
     return response
 
-#NO UTILIZADO AUN!!
+
 def cargarImagenBase(request):
-    print("entre a cargar imagen")
+    if request.method == 'GET'  :
+        idimg = request.GET.get('Id',None)
+
+        return render(request, 'workarea2.html', {})
+
+def cargaridImagen(request):
+    print("entra al view idImagen")
+    if request.method == 'GET'  :
+        idimg = request.GET.get('IdImg',None)
+        print(idimg)
+        response = Imagen.objects.get(idimagen= int(idimg))
+
+	return JsonResponse( response.ruta, safe = False)
 
 #funcion para un nuevo usuario mediante el modal Sign UP.
 def crearUsuario(request):

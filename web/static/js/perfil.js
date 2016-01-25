@@ -1,13 +1,13 @@
 
     $(document).on('ready', function () {
 
+
+
      $("#btnCompartir").click(function(event){
         var usuario = $( "#sel1" ).val();
         var imagen = $( "#sel2" ).val();
-
        //console.log( $( "#sel1" ).val());
        //console.log( $( "#sel2" ).val());
-
        $.post('/compartirImagen/',{ 'usuario':usuario,'imagen':imagen, 'csrfmiddlewaretoken' : $('input[name="csrfmiddlewaretoken"]').val()}, function(data){
          alert("funciono!");
       });
@@ -46,7 +46,7 @@
            success: function(imagenes){
              $.each(imagenes, function(i,imagen){
                $("#ulimg").append("<li  class='list-group-item'>"+
-               "<a href='' id="+ imagen.ImagenId + " class='linkear'>"+
+               "<a href='/workarea/' id='"+ imagen.ImagenId + "' class='linkear'>"+
                 imagen.Nombre+
                "</a>"+
                 "</li>"
@@ -54,14 +54,15 @@
                $("#sel2").append(
                  "<option>"+imagen.Nombre+"</option>"
                );
-
                $('.linkear').click(function(event){
                      var numId =  $(this).attr("id");
-                     //console.log(numId);
+                    // console.log(numId);
                     // $(this).attr("href", "/workarea/");
-                     $.get('/cargarImagenBase/',{Id : numId},function(data){
+                    $.get('/cargarImagenBase/',{'Id' : numId},function(data){
+                       window.location = "/workarea/?id="+numId;
                      });
                  });
+
              });
            },
            error: function(data){
