@@ -32,12 +32,19 @@ class AutoLogout:
 def home(request):
     return render(request,'index.html',{})
 
+def perfil(request):
+    return render(request,'perfil.html',{})
+
+def workarea(request):
+    return render(request,'workarea2.html',{})
+
 def backhome(request):
     return redirect('/')
 
 def backperfil(request):
     return redirect('/perfil/')
 
+#funcion de login con user django y con espol
 def login(request):
     if request.method == 'POST':
         try:
@@ -68,19 +75,14 @@ def login(request):
     else:
         return HttpResponseBadRequest()
 
+#funcion de logout
 def logout(request):
     from django.contrib.auth import logout
     logout(request)
     return redirect('/')
 
-def perfil(request):
-    return render(request,'perfil.html',{})
-
-def workarea(request):
-    return render(request,'workarea2.html',{})
-
+#funcion que muestra la lista de imagenes del usuario en el perfil.
 def mostrarImagen(request):
-    print("hola")
     if request.method == 'GET'  :
             imagenes = Imagen.objects.filter(idcreador=request.user.username)
             response = render_to_response(
@@ -92,9 +94,11 @@ def mostrarImagen(request):
     response['Cache-Control'] = 'no-cache'
     return response
 
+#NO UTILIZADO AUN!!
 def cargarImagenBase(request):
     print("entre a cargar imagen")
 
+#funcion para un nuevo usuario mediante el modal Sign UP.
 def crearUsuario(request):
     if request.method == 'POST':
         username = request.POST.get('username', None)
@@ -116,23 +120,44 @@ def crearUsuario(request):
             nuser.save()
     return HttpResponse()
 
-
+#funcion para obtener la lista de usuarios de la tabla Users para el share.
 def mostrarUsuarios(request):
-    print("entro mostrarUsuarios")
     if request.method == 'GET'  :
-            usuarios = Users.objects.all()
-            listUsuarios = list()
-            for u in usuarios:
-                 listUsuarios.append(u)
+            usuarios = AuthUser.objects.all()
+            res = usuarios.exclude(username= request.user.username)
             response = render_to_response(
-            'json/buscarUsers.json',
-            {'users': users},
-            context_instance=RequestContext(request)
+        'json/users.json',
+        {'users': res}, #mismo etiqueta en el json
+        context_instance=RequestContext(request)
             )
     response['Content-Type'] = 'application/json; charset=utf-8'
     response['Cache-Control'] = 'no-cache'
     return response
 
+def obtenerImgCompartidas(request):
+    print("entro compartir img")
+    if request.method == 'GET':
+        lst_imgc = ImgCompartidas.objects.filter(id_usdest=request.user.username)
+        listimg = []
+        for img in lst_imgc:
+            idi = img.id_imagen
+            print("id imagen")
+            print(idi)
+            imgu = Imagen.objects.get(idimagen=idi)
+            print("imagen")
+            print(imgu)
+            listimg.append(imgu)
+            response = render_to_response(
+        'json/imgshared.json',
+        {'imagenes': listimg}, #mismo etiqueta en el json
+        context_instance=RequestContext(request)
+            )
+    response['Content-Type'] = 'application/json; charset=utf-8'
+    response['Cache-Control'] = 'no-cache'
+    return response
+
+
+#funcion para que el usuario modifique su informacion personal en perfil (tabla Users).
 def editarDatosPersona(request):
     if request.method == 'POST':
         nombre = request.POST.get('nombre', None)
@@ -147,6 +172,7 @@ def editarDatosPersona(request):
         u.save();
         return HttpResponse()
 
+#funcion para cargar una imagen con el boton subir del modal en el workarea.
 def cargarImagen(request):
 	if request.method == 'GET':
 		#id = requeste.GET.get('id',None)
@@ -154,6 +180,7 @@ def cargarImagen(request):
 		response = Imagen.objects.all()
 		return JsonResponse( response[1].ruta, safe = False)
 
+#funcion para guardar la imagen creada en el workarea.
 def guardarImagen(request):
     if request.method == 'POST':
         nombre = request.POST.get('nombre', None)

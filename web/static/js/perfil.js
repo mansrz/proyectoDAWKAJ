@@ -47,12 +47,7 @@
                      $.get('/cargarImagenBase/',{Id : numId},function(data){
                      });
                  });
-
-
           });
-
-
-
            },
            error: function(data){
              console.log(data.responseText);
@@ -60,4 +55,21 @@
            }
        });
 
+       $.ajax({
+            type: "GET",
+            url:'/imagenCompartidas',
+            async: true,
+            dataType:"json",
+            contenType:"application/Json; charset=utf-8",
+
+            success: function(imgs){
+              $.each(imgs, function(i,img){
+               console.log("holi");
+           });
+            },
+            error: function(data){
+              console.log(data.responseText);
+
+            }
+        });
 });

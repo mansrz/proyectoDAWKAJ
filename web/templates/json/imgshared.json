@@ -1,0 +1,13 @@
+{% spaceless %}
+[
+  {% for i in imagenes %}
+  {
+    "ImagenId":"{{i.idimagen}}",
+    "Nombre":"{{i.nombre}}",
+    "Descripcion":"{{i.descripcion}}",
+    "Ruta":"{{i.ruta}}",
+    "CreadorId":"{{i.idcreador}}"
+    }{% if not forloop.last %},{% endif %}
+  {% endfor %}
+]
+{% endspaceless %}

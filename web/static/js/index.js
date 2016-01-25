@@ -35,11 +35,10 @@ $(document).ready(function(){
         alert("Datos Imcompletos . Porfavor llene todos los campos.");
 
       }else {
-        alert("no debe entrar");
-        /*
+          
         $.post('/cUser/',{'username':usuario,'password':password,'email':email, 'csrfmiddlewaretoken' : $('input[name="csrfmiddlewaretoken"]').val()}, function(data){
           alert("El usuario se ha creado con exito!")
-        });*/
+        });
       }
 
 

@@ -1,15 +1,40 @@
 
+
     $(document).on('ready', function () {
 
+      $.ajax({
+           type: "GET",
+           url:'/mUsers',
+           async: true,
+           dataType:"json",
+           contenType:"application/Json; charset=utf-8",
+
+           success: function(users){
+             $.each(users, function(u,user){
+               $("#sel1").append(
+                 "<option>"+user.username+"</option>"
+               );
+          });
+           },
+           error: function(data){
+             console.log(data.responseText);
+
+           }
+       });
+
 	  $('#btnGuardarArchivo').click(function(){
+
 		  var json = JSON.stringify(graphLienzo);
       var nombre =   $('#nombre').val();
       var descripcion =   $('#descripcion').val();
-      console.log(nombre);
-      console.log(descripcion);
+      if(nombre== "" || descripcion==""){
+        alert("Datos Imcompletos . Porfavor llene todos los campos.");
+      }else {
 		  $.post('/guardarImagen/',{'ruta':json, 'nombre':nombre,'descripcion':descripcion, 'csrfmiddlewaretoken' : $('input[name="csrfmiddlewaretoken"]').val()}, function(data){
 			 console.log(data);
 		  });
+      }
+
 	  });
 
 	  $('#btnCargarImagen').click(function(){
@@ -25,6 +50,7 @@
     $('#chkshared').on( 'click', function() {
         if( $(this).is(':checked') ){
               $("#divshared").css("visibility", "visible");
+
         } else {
               $("#divshared").css("visibility", "hidden");
         }
