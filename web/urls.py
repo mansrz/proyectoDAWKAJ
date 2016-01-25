@@ -18,5 +18,6 @@ urlpatterns = [
     url(r'^cUser/', 'web.views.crearUsuario'),
     url(r'^imagen/', 'web.views.mostrarImagen'),
     url(r'^imagenCompartidas/', 'web.views.obtenerImgCompartidas'),
+    url(r'^compartirImagen/', 'web.views.compartirImagen'),
     url(r'^$', 'web.views.home'),
 ]

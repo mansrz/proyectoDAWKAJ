@@ -1,6 +1,18 @@
 
     $(document).on('ready', function () {
 
+     $("#btnCompartir").click(function(event){
+        var usuario = $( "#sel1" ).val();
+        var imagen = $( "#sel2" ).val();
+
+       //console.log( $( "#sel1" ).val());
+       //console.log( $( "#sel2" ).val());
+
+       $.post('/compartirImagen/',{ 'usuario':usuario,'imagen':imagen, 'csrfmiddlewaretoken' : $('input[name="csrfmiddlewaretoken"]').val()}, function(data){
+         alert("funciono!");
+      });
+      });
+
       $("#btnEditar").click(function(event){
           // $("#modalEditar").show();
           var n = $('#nfirstname').text();
@@ -39,6 +51,9 @@
                "</a>"+
                 "</li>"
                );
+               $("#sel2").append(
+                 "<option>"+imagen.Nombre+"</option>"
+               );
 
                $('.linkear').click(function(event){
                      var numId =  $(this).attr("id");
@@ -47,15 +62,14 @@
                      $.get('/cargarImagenBase/',{Id : numId},function(data){
                      });
                  });
-          });
+             });
            },
            error: function(data){
              console.log(data.responseText);
-
            }
-       });
+      });
 
-       $.ajax({
+      $.ajax({
             type: "GET",
             url:'/imagenCompartidas',
             async: true,
@@ -70,11 +84,30 @@
                 "</a>"+
                  "</li>"
                 );
-           });
+              });
             },
             error: function(data){
               console.log(data.responseText);
-
             }
-        });
+      });
+
+      $.ajax({
+             type: "GET",
+             url:'/mUsers',
+             async: true,
+             dataType:"json",
+             contenType:"application/Json; charset=utf-8",
+
+             success: function(users){
+               $.each(users, function(u,user){
+                 $("#sel1").append(
+                   "<option>"+user.username+"</option>"
+                 );
+            });
+             },
+             error: function(data){
+               console.log(data.responseText);
+             }
+         });
+         //FIN JQUERY
 });

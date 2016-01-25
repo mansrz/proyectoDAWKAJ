@@ -152,7 +152,6 @@ def obtenerImgCompartidas(request):
     response['Cache-Control'] = 'no-cache'
     return response
 
-
 #funcion para que el usuario modifique su informacion personal en perfil (tabla Users).
 def editarDatosPersona(request):
     if request.method == 'POST':
@@ -163,9 +162,9 @@ def editarDatosPersona(request):
     else :
         from django.contrib.auth.models import User
         u = User.objects.get(username=request.user.username)
-        u.first_name = nombre;
-        u.last_name= apellido;
-        u.save();
+        u.first_name = nombre
+        u.last_name= apellido
+        u.save()
         return HttpResponse()
 
 #funcion para cargar una imagen con el boton subir del modal en el workarea.
@@ -193,3 +192,19 @@ def guardarImagen(request):
             imagen.idcreador = request.user.username
             imagen.save()
 	return HttpResponse()
+
+
+def compartirImagen(request):
+    if request.method == 'POST':
+        usuario = request.POST.get('usuario', None)
+        imagen = request.POST.get('imagen', None)
+    if imagen is None:
+        return HttpResponseBadRequest()
+    else :
+        imgshared = ImgCompartidas()
+        imgshared.fecha = datetime.datetime.now()
+        imgtarget = Imagen.objects.get(nombre = imagen)
+        imgshared.id_imagen = imgtarget.idimagen
+        imgshared.id_usdest = usuario
+        imgshared.save()
+        return HttpResponse()

@@ -31,8 +31,9 @@
         alert("Datos Imcompletos . Porfavor llene todos los campos.");
       }else {
 		  $.post('/guardarImagen/',{'ruta':json, 'nombre':nombre,'descripcion':descripcion, 'csrfmiddlewaretoken' : $('input[name="csrfmiddlewaretoken"]').val()}, function(data){
-			 console.log(data);
-		  });
+			 //console.log(data);
+        $("#ahoja1").text(nombre);
+     });
       }
 
 	  });
