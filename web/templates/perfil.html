@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" >
     <script src= "http://code.jquery.com/jquery-1.11.3.min.js" ></script>
     <script src= "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ></script>
+    <script src="{% static 'js/fbPerfil.js' %}"></script>
   </head>
   <body data-spy="scroll" data-target=".navbar" data-offset="50">
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -30,8 +31,22 @@
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <span class="glyphicon glyphicon-user"></span>  {{ request.user }}  <span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="#" class="pull-right"><img alt="User Pic" src="{% static "img/thumb/2.jpg" %}" class="img-thumbnail img-responsive " width="150" height="75"></a></li>
-                    <li><a href="/logout/" target="_top">log out</a></li>
+                    <div id="fb-root">
+                      <script>
+                                (function(d, s, id) {
+                                  var js, fjs = d.getElementsByTagName(s)[0];
+                                  if (d.getElementById(id)) return;
+                                  js = d.createElement(s); js.id = id;
+                                  js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.5&appId=1278305482239325";
+                                  fjs.parentNode.insertBefore(js, fjs);
+                                }(document, 'script', 'facebook-jssdk'));
+                            </script>
+                            <a href="#" id="login"></a>
+                            </div>
+          <div id="contFromBase">
+              <li><a href="#" class="pull-right"><img alt="User Pic" src="{% static "img/thumb/2.jpg" %}" class="img-thumbnail img-responsive " width="150" height="75"></a></li>
+              <li><a href="/logout/" target="_top">log out</a></li>
+          </div>
                   </ul>
                 </li>
               </ul>
