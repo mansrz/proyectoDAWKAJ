@@ -210,6 +210,7 @@ def compartirImagen(request):
     if request.method == 'POST':
         usuario = request.POST.get('usuario', None)
         imagen = request.POST.get('imagen', None)
+        permiso =request.POST.get('permiso', None)
     if imagen is None:
         return HttpResponseBadRequest()
     else :
@@ -217,6 +218,9 @@ def compartirImagen(request):
         imgshared.fecha = datetime.datetime.now()
         imgtarget = Imagen.objects.get(nombre = imagen)
         imgshared.id_imagen = imgtarget.idimagen
+        imgshared.permiso = permiso
+        print(imagen)
+        print(imgtarget.idimagen)
         imgshared.id_usdest = usuario
         imgshared.save()
         return HttpResponse()

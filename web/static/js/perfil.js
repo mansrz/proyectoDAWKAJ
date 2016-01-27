@@ -6,12 +6,13 @@
      $("#btnCompartir").click(function(event){
         var usuario = $( "#sel1" ).val();
         var imagen = $( "#sel2" ).val();
+        var permiso = $("#sel3").val();
        //console.log( $( "#sel1" ).val());
        //console.log( $( "#sel2" ).val());
-       $.post('/compartirImagen/',{ 'usuario':usuario,'imagen':imagen, 'csrfmiddlewaretoken' : $('input[name="csrfmiddlewaretoken"]').val()}, function(data){
-         alert("funciono!");
-      });
-      });
+         $.post('/compartirImagen/',{ 'usuario':usuario,'imagen':imagen,'permiso':permiso, 'csrfmiddlewaretoken' : $('input[name="csrfmiddlewaretoken"]').val()}, function(data){
+           alert("funciono!");
+        });
+     });
 
       $("#btnEditar").click(function(event){
           // $("#modalEditar").show();
@@ -36,6 +37,8 @@
   		  });
       });
 
+      var indexi =0;
+
       $.ajax({
            type: "GET",
            url:'/imagen',
@@ -45,19 +48,30 @@
 
            success: function(imagenes){
              $.each(imagenes, function(i,imagen){
-               $("#ulimg").append("<li  class='list-group-item'>"+
-               "<a href='/workarea/' id='"+ imagen.ImagenId + "' class='linkear'>"+
-                imagen.Nombre+
-               "</a>"+
-                "</li>"
-               );
+
+               if(indexi == 0){
+                  $("#cimagenes").append(
+                 "<div class='item active'><div class='row-fluid'>"+
+                  "<h3 style='text-align:center;'>"
+                  + imagen.Nombre  + "</h3>"+
+                  " <div class='span3'><a href='' id='"+ imagen.ImagenId + "' name='linkear' class='thumbnail '><img src='http://placehold.it/250x250' alt='Image' style='max-width:25%;'></a></div>" +
+                  "</div></div></div>"  );
+                  indexi=1;
+               }else {
+                 $("#cimagenes").append(
+                "<div class='item'><div class='row-fluid'>"+
+                "<h3 style='text-align:center;'>"
+                + imagen.Nombre  + "</h3>"+
+                 " <div class='span3'><a href='' id='"+ imagen.ImagenId + "' name='linkear' class='thumbnail'><img src='http://placehold.it/250x250' alt='Image' style='max-width:25%;'></a></div>" +
+                 "</div></div></div>"  );
+               }
+
                $("#sel2").append(
                  "<option>"+imagen.Nombre+"</option>"
                );
-               $('.linkear').click(function(event){
+
+               $('a[name=linkear]').click(function(event){
                      var numId =  $(this).attr("id");
-                    // console.log(numId);
-                    // $(this).attr("href", "/workarea/");
                     $.get('/cargarImagenBase/',{'Id' : numId},function(data){
                        window.location = "/workarea/?id="+numId;
                      });
@@ -70,6 +84,8 @@
            }
       });
 
+      var indexj =0;
+
       $.ajax({
             type: "GET",
             url:'/imagenCompartidas',
@@ -79,12 +95,31 @@
 
             success: function(imgs){
               $.each(imgs, function(i,img){
-                $("#ulcimg").append("<li  class='list-group-item'>"+
-                "<a href='' id="+ img.ImagenId + " class='linkear'>"+
-                 img.Nombre+
-                "</a>"+
-                 "</li>"
-                );
+
+                if(indexj == 0){
+                   $("#compartidos").append(
+                  "<div class='item active'><div class='row-fluid'>"+
+                   "<h3 style='text-align:center;'>"
+                   + img.Nombre  + "</h3>"+
+                   " <div class='span3'><a href='' id='"+ img.ImagenId + "' name='linkear2' class='thumbnail '><img src='http://placehold.it/250x250' alt='Image' style='max-width:25%;'></a></div>" +
+                   "</div></div></div>"  );
+                   indexj=1;
+                }else {
+                  $("#compartidos").append(
+                 "<div class='item'><div class='row-fluid'>"+
+                 "<h3 style='text-align:center;'>"
+                 + img.Nombre  + "</h3>"+
+                  " <div class='span3'><a href='' id='"+ img.ImagenId + "' name='linkear2' class='thumbnail'><img src='http://placehold.it/250x250' alt='Image' style='max-width:25%;'></a></div>" +
+                  "</div></div></div>"  );
+                }
+
+                $('a[name=linkear2]').click(function(event){
+                      var numId =  $(this).attr("id");
+                     $.get('/cargarImagenBase/',{'Id' : numId},function(data){
+                        window.location = "/workarea/?id="+numId;
+                      });
+                  });
+
               });
             },
             error: function(data){

@@ -48,7 +48,19 @@ class ImgCompartidas(models.Model):
     fecha = models.DateField(blank=True, null=True)
     id_imagen = models.IntegerField()
     id_usdest = models.CharField(max_length=30)
+    permiso = models.CharField(max_length=20)
 
     class Meta:
         managed = False
         db_table = 'img_compartidas'
+
+class Historial(models.Model):
+    idhistorial = models.AutoField(primary_key=True)
+    id_imagen = models.IntegerField()
+    id_usuario = models.CharField(max_length=30)
+    fecha = models.DateField(blank=True, null=True)
+    comentario = models.CharField(max_length=30, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'historial'
