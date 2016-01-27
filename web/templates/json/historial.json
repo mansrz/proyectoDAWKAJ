@@ -1,0 +1,13 @@
+{% spaceless %}
+[
+  {% for h in historial %}
+  {
+    "idhistorial":"{{h.idhistorial}}",
+    "id_imagen":"{{h.id_imagen}}",
+    "id_usuario":"{{h.id_usuario}}",
+    "fecha":"{{h.fecha}}",
+    "comentario":"{{h.comentario}}"
+    }{% if not forloop.last %},{% endif %}
+  {% endfor %}
+]
+{% endspaceless %}

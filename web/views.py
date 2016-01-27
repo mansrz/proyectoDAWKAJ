@@ -94,20 +94,15 @@ def mostrarImagen(request):
     response['Cache-Control'] = 'no-cache'
     return response
 
-
 def cargarImagenBase(request):
     if request.method == 'GET'  :
         idimg = request.GET.get('Id',None)
-
         return render(request, 'workarea2.html', {})
 
 def cargaridImagen(request):
-    print("entra al view idImagen")
     if request.method == 'GET'  :
         idimg = request.GET.get('IdImg',None)
-        print(idimg)
         response = Imagen.objects.get(idimagen= int(idimg))
-
 	return JsonResponse( response.ruta, safe = False)
 
 #funcion para un nuevo usuario mediante el modal Sign UP.
@@ -147,7 +142,6 @@ def mostrarUsuarios(request):
     return response
 
 def obtenerImgCompartidas(request):
-    print("entro compartir img")
     if request.method == 'GET':
         lst_imgc = ImgCompartidas.objects.filter(id_usdest=request.user.username)
         listimg = []
@@ -205,7 +199,7 @@ def guardarImagen(request):
             imagen.save()
 	return HttpResponse()
 
-
+#funcion para compartir imagen
 def compartirImagen(request):
     if request.method == 'POST':
         usuario = request.POST.get('usuario', None)
@@ -219,8 +213,46 @@ def compartirImagen(request):
         imgtarget = Imagen.objects.get(nombre = imagen)
         imgshared.id_imagen = imgtarget.idimagen
         imgshared.permiso = permiso
-        print(imagen)
-        print(imgtarget.idimagen)
         imgshared.id_usdest = usuario
         imgshared.save()
         return HttpResponse()
+
+def obtenerImgCreada(request):
+    print("entro onbtener img creada")
+    if request.method == 'GET'  :
+        nombreimg = request.GET.get('nombre',None)
+        print(nombreimg)
+        img = Imagen.objects.get(nombre= nombreimg)
+        print(img)
+        idimmg = img.idimagen
+        print(idimg)
+        data = {'idimg': idimg}
+    return JsonResponse(json.dumps(data) , safe = False)
+
+
+def guardarenHistorial(request):
+    if request.method == 'POST':
+        comentario = request.POST.get('comentario', None)
+        idimg = request.POST.get('idImg',None)
+        if comentario is None:
+			return HttpResponseBadRequest()
+        else :
+            ncomen = Historial()
+            ncomen.id_usuario = request.user.username
+            ncomen.fecha= datetime.datetime.now()
+            ncomen.id_imagen= idimg
+            ncomen.comentario = comentario
+            ncomen.save()
+	return HttpResponse()
+
+def mostrarHistorial(request):
+    if request.method == 'GET'  :
+            histo = Historial.objects.all()
+            response = render_to_response(
+        'json/historial.json',
+        {'historial': histo}, #mismo etiqueta en el json
+        context_instance=RequestContext(request)
+            )
+    response['Content-Type'] = 'application/json; charset=utf-8'
+    response['Cache-Control'] = 'no-cache'
+    return response

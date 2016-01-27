@@ -2,25 +2,52 @@
 
     $(document).on('ready', function () {
 
-          $.urlParam = function(name){
-        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-        if (results==null){
-           return null;
+        $.urlParam = function(name){
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            if (results==null){
+               return null;
+            }
+            else{
+               return results[1] || 0;
+            }
         }
-        else{
-           return results[1] || 0;
-        }
-    }
-    var idimgr =$.urlParam('id');
-    if(idimgr==null){
-      
-    }else {
-      console.log(idimgr);
-      $.get('/cImagen/',{'IdImg':idimgr},function(data){
-        graphLienzo.fromJSON((JSON.parse(data)));
-      });
-    }
 
+        var idimgr =$.urlParam('id');
+        if(idimgr!=null){
+          $("#barworkarea").append(
+          " <li><a  href='#modalHistorial' data-toggle='modal' data-target='#modalHistorial'>Historial</a></li>"
+          );
+          $.get('/cImagen/',{'IdImg':idimgr},function(data){
+            graphLienzo.fromJSON((JSON.parse(data)));
+            $.ajax({
+                 type: "GET",
+                 url:'/mHistorial',
+                 async: true,
+                 dataType:"json",
+                 contenType:"application/Json; charset=utf-8",
+
+                 success: function(historial){
+                   $.each(historial, function(h,hi){
+                   if (hi.id_imagen == idimgr)
+                   {
+                     $("#sel4").append(
+                       "<li class='list-group-item'>"+
+                       "<h4>"+ hi.id_usuario +"("+ hi.fecha +")"+ ":  <span class='label label-info'>"+
+                        hi.comentario+
+                       "</span></h4>"
+                       +"</li>"
+                     );
+                   }
+                });
+                 },
+                 error: function(data){
+                   console.log(data.responseText);
+
+                 }
+             });
+
+          });
+        }
 
       $.ajax({
            type: "GET",
@@ -47,16 +74,40 @@
 		  var json = JSON.stringify(graphLienzo);
       var nombre =   $('#nombre').val();
       var descripcion =   $('#descripcion').val();
-      if(nombre== "" || descripcion==""){
-        alert("Datos Imcompletos . Porfavor llene todos los campos.");
-      }else {
-		  $.post('/guardarImagen/',{'ruta':json, 'nombre':nombre,'descripcion':descripcion, 'csrfmiddlewaretoken' : $('input[name="csrfmiddlewaretoken"]').val()}, function(data){
-			 //console.log(data);
-        $("#ahoja1").text(nombre);
-     });
+
+      if(idimgr==null){
+          if(nombre== "" || descripcion==""){
+            alert("Datos Imcompletos . Porfavor llene todos los campos.");
+          }
+          else {
+    		  $.post('/guardarImagen/',{'ruta':json, 'nombre':nombre,'descripcion':descripcion, 'csrfmiddlewaretoken' : $('input[name="csrfmiddlewaretoken"]').val()}, function(data){
+            $("#ahoja1").text(nombre);
+            var nimg = $("#ahoja1").text();
+          });
+              }
       }
+      else {
+
+
+    }
 
 	  });
+
+    //btnComentar
+  $('#btnComentar').click(function(){
+    var comentario =   $('#comentario').val();
+    console.log(idimgr);
+    if(comentario!= ""){
+     $.post('/guardarenHistorial/',{'comentario':comentario,'idImg':idimgr, 'csrfmiddlewaretoken' : $('input[name="csrfmiddlewaretoken"]').val()}, function(data){
+      alert("Se guardo en historial");
+       $('#comentario').val("");
+    });
+  }
+  else {
+    alert("No ha ingresado comentario.");
+  }
+  });
+
 
 	  $('#btnCargarImagen').click(function(){
 		  $.get('/cargarImagen/',function(data){

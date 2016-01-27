@@ -20,5 +20,8 @@ urlpatterns = [
     url(r'^imagenCompartidas/', 'web.views.obtenerImgCompartidas'),
     url(r'^compartirImagen/', 'web.views.compartirImagen'),
     url(r'^cImagen/', 'web.views.cargaridImagen'),
+    url(r'^guardarenHistorial/', 'web.views.guardarenHistorial'),
+    url(r'^mHistorial/', 'web.views.mostrarHistorial'),
+    url(r'^obtenerImgCreada/', 'web.views.obtenerImgCreada'),
     url(r'^$', 'web.views.home'),
 ]

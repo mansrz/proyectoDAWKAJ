@@ -70,11 +70,12 @@
                   <a class="navbar-brand" href="/bhome/"><img src="{% static "img/logo1.png" %}"  class="img-circle" alt="Cinque Terre" width="30" height="30"></a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
-                  <ul class="nav navbar-nav">
+                  <ul class="nav navbar-nav" id ="barworkarea">
                      <li><a id= "new" href="/perfil/">Perfil</a></li>
                      <li><a id= "new" href="#">New</a></li>
           				   <li><a href="#myModal" data-toggle="modal" data-target="#myModal">Open</a></li>
                      <li><a  href="#modalGuardar" data-toggle="modal" data-target="#modalGuardar">Save</a></li>
+
           				   <li class="dropdown">
             				   <a class="dropdown-toggle" data-toggle="dropdown" href="#">Download<span class="caret"></span></a>
               					  <ul class="dropdown-menu">
@@ -178,7 +179,39 @@
               </div>
             </div>
         </div>
-      </div>
+
+     <!--HISTORIAL-->
+     <div class="modal fade" id="modalHistorial">
+         <div class="modal-dialog">
+           <div class="modal-content">
+             <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal">&times;</button>
+               <h4 class="modal-title">Historial</h4>
+             </div>
+             <div class="modal-body">
+                <div id="lstcomentarios">
+                  <ul class="list-group" id ="sel4"></ul>
+                </div>
+
+             </div>
+             <div class="modal-footer">
+               <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <p style="text-align:center;">
+                     <label for="comentario">Comentario:</label>
+                     <textarea class="form-control" id="comentario" rows="2"></textarea></p>
+                 </div>
+                 <div class="form-group">
+                     <p style="text-align:center;">
+                   <button type="button" id= "btnComentar" data-dismiss="modal" class="btn btn-primary">Comentar</button></p>
+                 </div>
+              </form>
+
+            </div>
+           </div>
+         </div>
+     </div>
+
       <!--GUARDAR-->
       <div class="modal fade" id="modalGuardar">
           <div class="modal-dialog">
