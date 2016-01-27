@@ -74,7 +74,7 @@
                      <li><a id= "new" href="/perfil/">Perfil</a></li>
                      <li><a id= "new" href="#">New</a></li>
           				   <li><a href="#myModal" data-toggle="modal" data-target="#myModal">Open</a></li>
-                     <li><a  href="#modalGuardar" data-toggle="modal" data-target="#modalGuardar">Save</a></li>
+                     <li id = "mGuardar"><a  href="#modalGuardar" data-toggle="modal" data-target="#modalGuardar">Save</a></li>
 
           				   <li class="dropdown">
             				   <a class="dropdown-toggle" data-toggle="dropdown" href="#">Download<span class="caret"></span></a>
@@ -124,8 +124,11 @@
 
                  </div>
           </div>
-          <div class="col-sm-4 sidenav" id="divAtributoTabla">
-           <div class="well">
+          <div class="col-sm-4 sidenav" >
+            <div class="well"  style= "height:100px;" >
+            <h2 id="rolUsuario">ADMINISTRADOR</h2>
+            </div>
+           <div class="well" id="divAtributoTabla">
              <label> Propiedades </label></br></br>
            <div class="well"  >
                <label> Atributos </label></br>
@@ -134,7 +137,6 @@
                  <button type="button" id= "btnGuardarAttr" class="btn btn-success">Guardar</button>
            </div>
            <div class="well" id="divEliminar">
-
                <button type="button" id= "btnEliminarTabla"class="btn btn-danger">Eliminar</button>
                 <button type="button" id= "btnLimpiarTabla"class="btn btn-primary">Limpiar</button>
            </div>
@@ -224,12 +226,8 @@
                 <div class="container-fluid">
                   <div class="row">
                       <div class="col-sm-12">
-
                         <div class="row">
-                          <div class="col-xs-8 col-sm-6">
-
-                          <p style="text-align:center;">
-                            <h2><span class="label label-primary">Datos del Archivo</span></h2>
+                          <h2 style="text-align:center;"><span class="label label-primary">Datos del Archivo</span></h2>
                           <hr>
                           <div class="form-group has-warning has-feedback">
                                 <div class="form-group">
@@ -240,23 +238,9 @@
                                     <label for="nombre">Descripci&oacute;n:</label>
                                     <textarea class="form-control" id="descripcion"></textarea>
                                 </div>
-                                <div class="checkbox">
-                                  <label><input type="checkbox" value="" id="chkshared">Habilitar Shared</label>
-                                </div>
                           </div>
-                        </div>
-                          <div class="col-xs-4 col-sm-6" id="divshared">
 
-                            <h2 style="text-align:center;"><span class="label label-success">Shared</span></h2>
-                            <hr>
-                            <label for="nombre">Persona:</label>
-                            <div class="form-group has-success has-feedback">
-                            <select class="form-control" id="sel1">
-                              <option>--------</option>
-                            </select>
-                          </div>
-                          </br>
-                          </div>
+
                         </div>
                       </div>
                  </div>
@@ -265,7 +249,7 @@
           </div>
               <div class="modal-footer">
                 <p style="text-align:center;">
-                <button type="button" id= "btnGuardarArchivo" data-dismiss="modal" class="btn btn-success">Guardar</button></p>
+                <button type="button" id= "btnGuardarArchivo" data-dismiss="modal" class="btn btn-primary">Guardar</button></p>
               </div>
             </div>
           </div>

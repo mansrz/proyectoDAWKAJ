@@ -23,5 +23,7 @@ urlpatterns = [
     url(r'^guardarenHistorial/', 'web.views.guardarenHistorial'),
     url(r'^mHistorial/', 'web.views.mostrarHistorial'),
     url(r'^obtenerImgCreada/', 'web.views.obtenerImgCreada'),
+    url(r'^oImagen/', 'web.views.obtenerImagen'),
+    url(r'^modificarImagen/', 'web.views.modificarImagen'),
     url(r'^$', 'web.views.home'),
 ]

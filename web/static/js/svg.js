@@ -11,9 +11,10 @@
                return results[1] || 0;
             }
         }
-
+        var rol ;
         var idimgr =$.urlParam('id');
         if(idimgr!=null){
+
           $("#barworkarea").append(
           " <li><a  href='#modalHistorial' data-toggle='modal' data-target='#modalHistorial'>Historial</a></li>"
           );
@@ -45,9 +46,40 @@
 
                  }
              });
+            $.get('/oImagen/',{'IdImg':idimgr},function(data){
+                rol=JSON.parse(data);
+                if(rol.rol == "EDITAR"){
+                    $("#rolUsuario").text("MODELADOR");
+                }
+                if(rol.rol == "VER"){
+                    $("#rolUsuario").text("VISUALIZADOR");
+                }
 
+              });
+              $("#mGuardar").remove();
+              $("#barworkarea").append(
+               " <li><a id= 'change' href=''>Save Changes</a></li>"
+
+              );
+              //update svg
+                $('#change').click(function(){
+                   var idcambio = idimgr;
+                   var njson = JSON.stringify(graphLienzo);
+                   if(rol.rol == "VER"){
+                     alert("USTED ES VISUALIZADOR. SUS CAMBIOS NO SE GUARDARAN.")
+                   }
+                   else{
+                     alert("SE VA A MODIFICAR EL DIAGRAMA");
+                     $.post('/modificarImagen/',{'ruta':njson, 'id':idcambio, 'csrfmiddlewaretoken' : $('input[name="csrfmiddlewaretoken"]').val()}, function(data){
+                          alert("SE MODIFICO EL DIAGRAMA");
+                     });
+                   }
+                 });
           });
         }
+
+
+
 
       $.ajax({
            type: "GET",
@@ -86,10 +118,7 @@
           });
               }
       }
-      else {
 
-
-    }
 
 	  });
 

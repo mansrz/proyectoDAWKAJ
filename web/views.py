@@ -256,3 +256,26 @@ def mostrarHistorial(request):
     response['Content-Type'] = 'application/json; charset=utf-8'
     response['Cache-Control'] = 'no-cache'
     return response
+
+def obtenerImagen(request):
+    if request.method == 'GET'  :
+        idimg = request.GET.get('IdImg',None)
+        imgc = ImgCompartidas.objects.get(id_usdest=request.user.username,id_imagen=idimg)
+        roluser = imgc.permiso
+        print(roluser)
+        data = {'rol': roluser}
+    return JsonResponse(json.dumps(data) , safe = False)
+
+def modificarImagen(request):
+    if request.method == 'POST':
+        idimgc = request.POST.get('id', None)
+        njson = request.POST.get('ruta',None)
+        print(idimgc)
+        if idimgc is None:
+			return HttpResponseBadRequest()
+        else :
+            imgc = Imagen.objects.get(idimagen= idimgc)
+            print (imgc)
+            imgc.ruta = njson
+            imgc.save()
+	return HttpResponse()
